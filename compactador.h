@@ -8,4 +8,6 @@
 
 void Codifica(char *string);
 
+//tArvore *CriaHuffman(tArvore **arv, int qnt);
+
 #endif

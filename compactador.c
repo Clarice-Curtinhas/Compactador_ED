@@ -51,4 +51,30 @@ void Codifica(char *string){
         printf("- %d\n", RetornaFrequencia(arvores[i]));
     }
     printf("\n");
+
+    int total = 0;
+
+    for(int i = 0; i < qnt; i++){
+        total += RetornaFrequencia(arvores[i]);
+    }
+
+    printf("%d\n", total);
 }
+
+/*tArvore *CriaHuffman(tArvore **arv, int qnt){
+    //tArvore *arvCod[100];
+    int total, count = 0, acha1 = -1, acha2 = -1;
+
+    for(int i = 0; i < qnt; i++){
+        total += RetornaFrequencia(arv[i]);
+    }
+
+    printf("%d\n", total);
+
+    /*while(count < total){
+        while(acha1 < total)
+        count++;
+    }*/
+
+    /*return NULL;//arvCod;
+}*/
