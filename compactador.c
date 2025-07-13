@@ -61,10 +61,9 @@ void Codifica(char *string){
 
     arv_completa = CriaHuffman(arvores, qnt, total);
 
-    for(int i = 0; i < qnt-1; i++){
-        printf("'%c' ", RetornaCaracter(arvores[i]));
-        printf("- %d\n", RetornaFrequencia(arvores[i]));
-    }
+    //printf("'%c' - ", RetornaCaracter(arv_completa));
+    printf("%d\n", RetornaFrequencia(arv_completa));
+
     printf("\n");
 }
 
@@ -72,7 +71,7 @@ tArvore *CriaHuffman(tArvore **arv, int qnt, int total){
     tArvore *arvore;
     int menorFreq1, idFreq1, menorFreq2, idFreq2;
 
-    if(qnt > 1){
+    while(qnt != 1){
         menorFreq1 = RetornaFrequencia(arv[0]);
         idFreq1 = 0;
 
@@ -110,6 +109,12 @@ tArvore *CriaHuffman(tArvore **arv, int qnt, int total){
 
         arv = AdicionaLista(arv, arvore, qnt);
         qnt++;
+
+        for(int i = 0; i < qnt; i++){
+            printf("'%c' ", RetornaCaracter(arv[i]));
+            printf("- %d\n", RetornaFrequencia(arv[i]));
+        }
+        printf("\n");
     }
 
     return arvore;
