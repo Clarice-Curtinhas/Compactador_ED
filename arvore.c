@@ -17,13 +17,26 @@ typedef struct Arvore{
     tArvore *dir;
 } tArvore;
 
-tArvore *CriaArvore(char caracter, tArvore *esq, tArvore *dir){
+tArvore *CriaFolhas(char caracter){
     tArvore *arv;
 
     arv = (tArvore*) calloc(1, sizeof(tArvore));
 
     arv->carac = caracter;
     arv->freq = 1;
+
+    arv->esq = NULL;
+    arv->dir = NULL;
+
+    return arv;
+}
+
+tArvore *CriaGalhos(tArvore *esq, tArvore *dir){
+    tArvore *arv;
+
+    arv = (tArvore*) calloc(1, sizeof(tArvore));
+
+    arv->freq = RetornaFrequencia(dir) + RetornaFrequencia(esq);
 
     arv->esq = esq;
     arv->dir = dir;
@@ -32,15 +45,15 @@ tArvore *CriaArvore(char caracter, tArvore *esq, tArvore *dir){
 }
 
 void AcrescimoDeCaracter(tArvore *arv){
-    arv->freq++;
+    if(arv != NULL) arv->freq++;
 }
 
 int RetornaFrequencia(tArvore *arv){
-    return arv->freq;
+    if(arv != NULL) return arv->freq;
 }
 
 char RetornaCaracter(tArvore *arv){
-    return arv->carac;
+    if(arv != NULL) return arv->carac;
 }
 
 void DesalocaArvore(tArvore *arv){

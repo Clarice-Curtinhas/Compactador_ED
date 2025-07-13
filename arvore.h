@@ -9,13 +9,22 @@
 typedef struct Arvore tArvore;
 
 /*
- * Cria uma árvore nova com dois galhos (que podem ou não ser igual a NULL)
+ * Cria uma árvore nova com dois galhos NULLs
+ * Inputs: a informação do nó e os galhos NULLs
+ * Outputs: um tipo "tArvore" alocado e inicializado
+ * Pre-condicao: info diferente de NULL e os galhos que podem ou não ser NULL
+ * Pos-condicao: um tipo "tArvore" alocado e com os campos preenchidos
+*/
+tArvore *CriaFolhas(char caracter);
+
+/*
+ * Cria uma árvore nova com dois galhos
  * Inputs: a informação do nó, o que ficará no galho a esquerda e a direita do nó
  * Outputs: um tipo "tArvore" alocado e inicializado
  * Pre-condicao: info diferente de NULL e os galhos que podem ou não ser NULL
  * Pos-condicao: um tipo "tArvore" alocado e com os campos preenchidos
 */
-tArvore *CriaArvore(char caracter, tArvore *esq, tArvore *dir);
+tArvore *CriaGalhos(tArvore *esq, tArvore *dir);
 
 /*
  * Aumenta a frequencia em que o caracter aparece

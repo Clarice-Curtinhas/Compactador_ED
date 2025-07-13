@@ -8,20 +8,19 @@
 #include <string.h>
 
 #include "compactador.h"
-#include "arvore.h"
 
 #define CARACTER 1
 #define NUMERO 2
 
 void Codifica(char *string){
-    tArvore *arvores[256];
+    tArvore *arvores[256], *arv_completa;
     int tam, qnt = 0, existe;
 
     tam = strlen(string);
 
     for(int i = 0; i < tam; i++){
         if(qnt == 0){
-            arvores[0] = CriaArvore(string[0], NULL, NULL);
+            arvores[0] = CriaFolhas(string[0]);
             qnt++;
         }
 
@@ -39,7 +38,7 @@ void Codifica(char *string){
             }
 
             if(existe == 0){
-                arvores[qnt] = CriaArvore(string[qnt], NULL, NULL);
+                arvores[qnt] = CriaFolhas(string[qnt]);
                 qnt++;
             }
 
@@ -59,22 +58,75 @@ void Codifica(char *string){
     }
 
     printf("%d\n", total);
+
+    arv_completa = CriaHuffman(arvores, qnt, total);
+
+    for(int i = 0; i < qnt-1; i++){
+        printf("'%c' ", RetornaCaracter(arvores[i]));
+        printf("- %d\n", RetornaFrequencia(arvores[i]));
+    }
+    printf("\n");
 }
 
-/*tArvore *CriaHuffman(tArvore **arv, int qnt){
-    //tArvore *arvCod[100];
-    int total, count = 0, acha1 = -1, acha2 = -1;
+tArvore *CriaHuffman(tArvore **arv, int qnt, int total){
+    tArvore *arvore;
+    int menorFreq1, idFreq1, menorFreq2, idFreq2;
 
-    for(int i = 0; i < qnt; i++){
-        total += RetornaFrequencia(arv[i]);
+    if(qnt > 1){
+        menorFreq1 = RetornaFrequencia(arv[0]);
+        idFreq1 = 0;
+
+        for(int i = 0; i < qnt; i++){
+            if(RetornaFrequencia(arv[i]) <= menorFreq1){
+                menorFreq1 = RetornaFrequencia(arv[i]);
+                idFreq1 = i;
+            }
+        }
+
+        if(idFreq1 != 0){
+            menorFreq2 = RetornaFrequencia(arv[0]);
+            idFreq2 = 0;
+        }
+
+        else{
+            menorFreq2 = RetornaFrequencia(arv[1]);
+            idFreq2 = 1;
+        }
+
+        for(int i = 0; i < qnt; i++){
+            if(RetornaFrequencia(arv[i]) <= menorFreq2 && menorFreq2 != menorFreq1){
+                menorFreq2 = RetornaFrequencia(arv[i]);
+                idFreq2 = i;
+            }
+        }
+
+        arvore = CriaGalhos(arv[idFreq1], arv[idFreq2]);
+
+        arv = RetiraLista(arv, idFreq1, qnt);
+        qnt--;
+
+        arv = RetiraLista(arv, idFreq2, qnt);
+        qnt--;
+
+        arv = AdicionaLista(arv, arvore, qnt);
+        qnt++;
     }
 
-    printf("%d\n", total);
+    return arvore;
+}
 
-    /*while(count < total){
-        while(acha1 < total)
-        count++;
-    }*/
+tArvore **RetiraLista(tArvore **arv, int id, int qnt){
+    for(int i = id; i < qnt; i++){
+        if(i+1 < qnt) arv[i] = arv[i+1];
 
-    /*return NULL;//arvCod;
-}*/
+        else arv[i] = NULL;
+    }
+
+    return arv;
+}
+
+tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt){
+    arv[qnt] = arvore;
+
+    return arv;
+}

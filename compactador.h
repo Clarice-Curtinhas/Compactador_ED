@@ -6,8 +6,14 @@
 #ifndef COMPACTADOR_H
 #define COMPACTADOR_H
 
+#include "arvore.h"
+
 void Codifica(char *string);
 
-//tArvore *CriaHuffman(tArvore **arv, int qnt);
+tArvore *CriaHuffman(tArvore **arv, int qnt, int total);
+
+tArvore **RetiraLista(tArvore **arv, int id, int qnt);
+
+tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt);
 
 #endif
