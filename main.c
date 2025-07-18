@@ -15,14 +15,15 @@ int main(){
     tArvore *arv;
     int tam;
 
-    arv = Codifica("bom esse bombom");
+    //arv = Codifica("bom esse bombom");
+    Codifica("arara azul");
 
-    ImprimeArvore(arv);
+    /*ImprimeArvore(arv);
     printf("\n");
 
     tam = strlen("bom esse bombom");
 
     EscreveCodigoHuffman(arv, "bom esse bombom", tam);
 
-    EscreveTextoCodificado("bom esse bombom", arv);
+    EscreveTextoCodificado("bom esse bombom", arv);*/
 }
