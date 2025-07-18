@@ -28,6 +28,8 @@ int main(){
 
     EscreveTextoCodificado(text1, arv1);
 
+    DesalocaArvore(arv1);
+
     //////////////////////
 
     arv2 = Codifica(text2);
@@ -40,4 +42,6 @@ int main(){
     EscreveCodigoHuffman(arv2, text2, tam);
 
     EscreveTextoCodificado(text2, arv2);
+
+    DesalocaArvore(arv2);
 }
