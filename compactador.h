@@ -36,6 +36,15 @@ tArvore *CriaHuffman(tArvore **arv, int qnt);
 tArvore **RetiraLista(tArvore **arv, int id1,  int id2, int qnt);
 
 /*
+ * Ordena uma lista de árvores em ordem crescente de frequência usando Quick Sort
+ * Inputs: vetor de árvores, quantidade de árvores no vetor
+ * Outputs: nenhum
+ * Pre-condicao: vetor diferente de NULL
+ * Pos-condicao: vetor ordenado
+*/
+void OrdenaLista(tArvore **arv, int qtd);
+
+/*
  * Adiciona uma arvore no vetor de "tArvore"
  * Inputs: um vetor de "tArvore", um tipo "tArvore" para ser adicionado e o tamanho atual do vetor
  * Outputs: vetor do tipo "tArvore" com a árvore adicionada no final do vetor

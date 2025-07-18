@@ -12,18 +12,32 @@
 #include "arvore.h"
 
 int main(){
-    tArvore *arv;
+    tArvore *arv1, *arv2;
     int tam;
 
-    //arv = Codifica("bom esse bombom");
-    Codifica("arara azul");
+    char *text1 = "bom esse bombom", *text2 = "arara azul";
 
-    /*ImprimeArvore(arv);
+    arv1 = Codifica(text1);
+
+    ImprimeArvore(arv1);
     printf("\n");
 
-    tam = strlen("bom esse bombom");
+    tam = strlen(text1);
 
-    EscreveCodigoHuffman(arv, "bom esse bombom", tam);
+    EscreveCodigoHuffman(arv1, text1, tam);
 
-    EscreveTextoCodificado("bom esse bombom", arv);*/
+    EscreveTextoCodificado(text1, arv1);
+
+    //////////////////////
+
+    arv2 = Codifica(text2);
+
+    ImprimeArvore(arv2);
+    printf("\n");
+
+    tam = strlen(text2);
+
+    EscreveCodigoHuffman(arv2, text2, tam);
+
+    EscreveTextoCodificado(text2, arv2);
 }

@@ -98,7 +98,7 @@ void EscreveCodigoHuffman(tArvore *arv, char *text, int tam){
             }
         }
 
-        if(jaAnalisado == 1) break;
+        if(jaAnalisado == 1) continue;
 
         else{
             printf("SCII: %d - %c - ", text[i], text[i]);

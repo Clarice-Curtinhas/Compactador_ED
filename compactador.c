@@ -38,12 +38,14 @@ tArvore *Codifica(char *text){
             }
 
             if(existe == 0){
-                arvores[qnt] = CriaFolhas(text[qnt]);
+                arvores[qnt] = CriaFolhas(text[i]);
                 qnt++;
             }
 
         }
     }
+
+    OrdenaLista(arvores, qnt);
 
     int total = 0;
 
@@ -63,32 +65,8 @@ tArvore *CriaHuffman(tArvore **arv, int qnt){
     int menorFreq1, idFreq1, menorFreq2, idFreq2;
 
     while(qnt != 1){
-        menorFreq1 = RetornaFrequencia(arv[0]);
         idFreq1 = 0;
-
-        for(int i = 0; i < qnt; i++){
-            if(RetornaFrequencia(arv[i]) <= menorFreq1){
-                menorFreq1 = RetornaFrequencia(arv[i]);
-                idFreq1 = i;
-            }
-        }
-
-        if(idFreq1 != 0){
-            menorFreq2 = RetornaFrequencia(arv[0]);
-            idFreq2 = 0;
-        }
-
-        else{
-            menorFreq2 = RetornaFrequencia(arv[1]);
-            idFreq2 = 1;
-        }
-
-        for(int i = 0; i < qnt; i++){
-            if(RetornaFrequencia(arv[i]) <= menorFreq2 && i != idFreq1){
-                menorFreq2 = RetornaFrequencia(arv[i]);
-                idFreq2 = i;
-            }
-        }
+        idFreq2 = 1;
 
         arvore = CriaGalhos(arv[idFreq1], arv[idFreq2]);
 
@@ -106,6 +84,35 @@ tArvore *CriaHuffman(tArvore **arv, int qnt){
     }
 
     return arvore;
+}
+
+void OrdenaLista(tArvore **arv, int qnt){
+    
+    if (qnt <= 1) return;
+
+    tArvore *x = arv[0];
+    int freq_x = RetornaFrequencia(arv[0]);
+    int a = 1;
+    int b = qnt - 1;
+
+    do {
+        while (a < qnt && RetornaFrequencia(arv[a]) <= freq_x) a++;
+        while (RetornaFrequencia(arv[b]) > freq_x) b--;
+
+        if (a < b){
+            tArvore *aux = arv[a];
+            arv[a] = arv[b];
+            arv[b] = aux;
+            a++;
+            b--;
+        } 
+    } while (a <= b);
+
+    arv[0] = arv[b];
+    arv[b] = x;
+
+    OrdenaLista(arv, b);
+    OrdenaLista(&arv[a], qnt - a);
 }
 
 tArvore **RetiraLista(tArvore **arv, int id1, int id2, int qnt){
