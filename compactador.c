@@ -12,15 +12,15 @@
 #define CARACTER 1
 #define NUMERO 2
 
-void Codifica(char *string){
+tArvore *Codifica(char *text){
     tArvore *arvores[256], *arv_completa;
     int tam, qnt = 0, existe;
 
-    tam = strlen(string);
+    tam = strlen(text);
 
     for(int i = 0; i < tam; i++){
         if(qnt == 0){
-            arvores[0] = CriaFolhas(string[0]);
+            arvores[0] = CriaFolhas(text[0]);
             qnt++;
         }
 
@@ -29,7 +29,7 @@ void Codifica(char *string){
 
             for(int j = 0; j < qnt; j++){
 
-                if(string[i] == RetornaCaracter(arvores[j])){
+                if(text[i] == RetornaCaracter(arvores[j])){
                     AcrescimoDeCaracter(arvores[j]);
 
                     existe = 1;
@@ -38,18 +38,12 @@ void Codifica(char *string){
             }
 
             if(existe == 0){
-                arvores[qnt] = CriaFolhas(string[qnt]);
+                arvores[qnt] = CriaFolhas(text[qnt]);
                 qnt++;
             }
 
         }
     }
-
-    for(int i = 0; i < qnt; i++){
-        printf("'%c' ", RetornaCaracter(arvores[i]));
-        printf("- %d\n", RetornaFrequencia(arvores[i]));
-    }
-    printf("\n");
 
     int total = 0;
 
@@ -59,15 +53,12 @@ void Codifica(char *string){
 
     printf("%d\n", total);
 
-    arv_completa = CriaHuffman(arvores, qnt, total);
+    arv_completa = CriaHuffman(arvores, qnt);
 
-    //printf("'%c' - ", RetornaCaracter(arv_completa));
-    printf("%d\n", RetornaFrequencia(arv_completa));
-
-    printf("\n");
+    return arv_completa;
 }
 
-tArvore *CriaHuffman(tArvore **arv, int qnt, int total){
+tArvore *CriaHuffman(tArvore **arv, int qnt){
     tArvore *arvore;
     int menorFreq1, idFreq1, menorFreq2, idFreq2;
 
@@ -93,7 +84,7 @@ tArvore *CriaHuffman(tArvore **arv, int qnt, int total){
         }
 
         for(int i = 0; i < qnt; i++){
-            if(RetornaFrequencia(arv[i]) <= menorFreq2 && menorFreq2 != menorFreq1){
+            if(RetornaFrequencia(arv[i]) <= menorFreq2 && i != idFreq1){
                 menorFreq2 = RetornaFrequencia(arv[i]);
                 idFreq2 = i;
             }
@@ -101,11 +92,8 @@ tArvore *CriaHuffman(tArvore **arv, int qnt, int total){
 
         arvore = CriaGalhos(arv[idFreq1], arv[idFreq2]);
 
-        arv = RetiraLista(arv, idFreq1, qnt);
-        qnt--;
-
-        arv = RetiraLista(arv, idFreq2, qnt);
-        qnt--;
+        arv = RetiraLista(arv, idFreq1, idFreq2,  qnt);
+        qnt -= 2;
 
         arv = AdicionaLista(arv, arvore, qnt);
         qnt++;
@@ -120,11 +108,25 @@ tArvore *CriaHuffman(tArvore **arv, int qnt, int total){
     return arvore;
 }
 
-tArvore **RetiraLista(tArvore **arv, int id, int qnt){
-    for(int i = id; i < qnt; i++){
-        if(i+1 < qnt) arv[i] = arv[i+1];
+tArvore **RetiraLista(tArvore **arv, int id1, int id2, int qnt){
+    int id[2];
 
-        else arv[i] = NULL;
+    if(id1 > id2){
+        id[0] = id1;
+        id[1] = id2;
+    }
+
+    else{
+        id[0] = id2;
+        id[1] = id1;
+    }
+
+    for(int j = 0; j < 2; j++){
+        for(int i = id[j]; i < qnt; i++){
+            if(i+1 < qnt) arv[i] = arv[i+1];
+
+            else arv[i] = NULL;
+        }
     }
 
     return arv;
@@ -134,4 +136,17 @@ tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt){
     arv[qnt] = arvore;
 
     return arv;
+}
+
+void EscreveTextoCodificado(char *text, tArvore *arv){
+    int tam;
+
+    tam = strlen(text);
+
+    for(int i = 0; i < tam; i++){
+        EncontraCaracter(arv, text[i]);
+        printf(" ");
+    }
+
+    printf("\n");
 }

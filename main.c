@@ -6,9 +6,23 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include <string.h>
+
 #include "compactador.h"
 #include "arvore.h"
 
 int main(){
-    Codifica("bom esse bombom");
+    tArvore *arv;
+    int tam;
+
+    arv = Codifica("bom esse bombom");
+
+    ImprimeArvore(arv);
+    printf("\n");
+
+    tam = strlen("bom esse bombom");
+
+    EscreveCodigoHuffman(arv, "bom esse bombom", tam);
+
+    EscreveTextoCodificado("bom esse bombom", arv);
 }
