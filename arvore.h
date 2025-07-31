@@ -87,6 +87,6 @@ void EscreveCodigoHuffman(tArvore *arv, char *text, int tam);
  * Pre-condicao: nenhuma 
  * Pos-condicao: nenhuma
 */
-int EncontraCaracter(tArvore *arv, char carac);
+int EncontraCaracter(tArvore *arv, char carac, char *codigoHuffman, int tamCodigo);
 
 #endif

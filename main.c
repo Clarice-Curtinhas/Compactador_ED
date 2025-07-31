@@ -11,7 +11,7 @@
 #include "compactador.h"
 #include "arvore.h"
 
-int main(){
+/*int main(){
     tArvore *arv1, *arv2;
     int tam;
 
@@ -44,4 +44,4 @@ int main(){
     EscreveTextoCodificado(text2, arv2);
 
     DesalocaArvore(arv2);
-}
+}*/

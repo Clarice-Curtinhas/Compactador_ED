@@ -3,7 +3,7 @@
 #include <string.h>
 #include "compactador.h"
 
-int main(int argc, const char **argv){
+/*int main(int argc, const char **argv){
 
     if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
@@ -25,8 +25,8 @@ int main(int argc, const char **argv){
     }
 
     // Calcula o tamanho do arquivo
-    /* OBS.: preciso ver um jeito de desconsiderar os bytes que armazenam a árvore de compactação no início do arquivo
-        e armazená-los em uma árvore para ser utilizada na função de descompactação*/
+    // OBS.: preciso ver um jeito de desconsiderar os bytes que armazenam a árvore de compactação no início do arquivo
+    // e armazená-los em uma árvore para ser utilizada na função de descompactação
     fseek(arquivo_entrada, 0, SEEK_END);
     tam_arquivo = ftell(arquivo_entrada);
     fseek(arquivo_entrada, 0, SEEK_SET);
@@ -72,8 +72,8 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-    /* Aqui deve entrar a função que descompacta o arquivo.
-    Ela irá receber árvore de compactação, buffer, tam_arquivo, buffer_descompactado e tam_buffer_descompactado*/
+    // Aqui deve entrar a função que descompacta o arquivo.
+    // Ela irá receber árvore de compactação, buffer, tam_arquivo, buffer_descompactado e tam_buffer_descompactado
 
     bytes_escritos = fwrite(buffer_descompactado, 1, tam_buffer_descompactado, arquivo_saida);
 
@@ -86,4 +86,4 @@ int main(int argc, const char **argv){
     free(buffer_descompactado);
 
     return 0;
-}
+}*/

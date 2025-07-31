@@ -145,15 +145,27 @@ tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt){
     return arv;
 }
 
-void EscreveTextoCodificado(char *text, tArvore *arv){
-    int tam;
+int EscreveTextoCodificado(char *text, tArvore *arv, unsigned char **buffer_compactado){
+    int tam, tamCodigo = 0;
+    char *codigoHuffman;
 
     tam = strlen(text);
 
     for(int i = 0; i < tam; i++){
-        EncontraCaracter(arv, text[i]);
+        EncontraCaracter(arv, text[i], codigoHuffman, 0);
+        tamCodigo += strlen(codigoHuffman);
+
+        printf("%s", codigoHuffman);
         printf(" ");
     }
-
     printf("\n");
+
+    *buffer_compactado = (unsigned char *) calloc(tamCodigo, sizeof(unsigned char));
+    
+    for(int i = 0; i < tam; i++){
+        EncontraCaracter(arv, text[i], codigoHuffman, 0);
+        strcat(*buffer_compactado, codigoHuffman);
+    }
+
+    return tamCodigo;
 }

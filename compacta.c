@@ -46,6 +46,8 @@ int main(int argc, const char **argv){
         fclose(arquivo_entrada);
         return 1;
     }
+
+    printf("%s\n", buffer);
     
     fclose(arquivo_entrada);
 
@@ -66,8 +68,11 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-    /* Aqui deve entrar a função que compacta o arquivo.
-    Ela irá receber buffer, tam_arquivo, buffer_compactado e tam_buffer_compactado*/
+    tArvore *arvoreHuffman = Codifica(buffer);
+    EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
+    tam_buffer_compactado = EscreveTextoCodificado(buffer, arvoreHuffman, &buffer_compactado);
+
+    printf("%s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
 
     bytes_escritos = fwrite(buffer_compactado, 1, tam_buffer_compactado, arquivo_saida);
 

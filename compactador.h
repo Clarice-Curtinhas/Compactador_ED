@@ -55,11 +55,11 @@ tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt);
 
 /*
  * Escreve um texto com o código criado
- * Inputs: uma string com o texto que será escrito usando o código existente no "tArvore"
+ * Inputs: uma string com o texto que será escrito usando o código existente no "tArvore" e um ponteiro para o buffer em que o código será armazenado
  * Outputs: nenhum
  * Pre-condicao: string diferente de NULL e um "tArvore" diferente de NULL
  * Pos-condicao: nenhuma
 */
-void EscreveTextoCodificado(char *text, tArvore *arv);
+int EscreveTextoCodificado(char *text, tArvore *arv, unsigned char **buffer_compactado);
 
 #endif

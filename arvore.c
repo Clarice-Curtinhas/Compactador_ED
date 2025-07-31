@@ -82,7 +82,7 @@ void DesalocaArvore(tArvore *arv){
 }
 
 void EscreveCodigoHuffman(tArvore *arv, char *text, int tam){
-    char caracter[tam];
+    char caracter[tam], *codigoHuffman;
     int qntAnalisados = 0, jaAnalisado;
 
     for(int i = 0; i < tam; i++){
@@ -102,7 +102,8 @@ void EscreveCodigoHuffman(tArvore *arv, char *text, int tam){
 
         else{
             printf("SCII: %d - %c - ", text[i], text[i]);
-            EncontraCaracter(arv, text[i]);
+            EncontraCaracter(arv, text[i], codigoHuffman, 0);
+            printf("%s", codigoHuffman);
             printf(";\n");
 
             caracter[qntAnalisados] = text[i];
@@ -113,20 +114,23 @@ void EscreveCodigoHuffman(tArvore *arv, char *text, int tam){
     printf("\n");
 }
 
-// Os códigos ficam ao contrário do que no da prof pq eu usei recursão para escrever o caracter em código
-int EncontraCaracter(tArvore *arv, char carac){
+int EncontraCaracter(tArvore *arv, char carac, char *codigoHuffman, int tamCodigo){
     if(arv->carac){
-        if(carac == arv->carac) return 1;
+        if(carac == arv->carac) {
+            codigoHuffman[tamCodigo] = '\0';
+            return 1;
+        }
     }
 
     else{
-        if(EncontraCaracter(arv->esq, carac) == 1){
-            printf("0");
+
+        codigoHuffman[tamCodigo] = '0';
+        if(EncontraCaracter(arv->esq, carac, codigoHuffman, tamCodigo + 1) == 1){
             return 1;
         }
 
-        else if(EncontraCaracter(arv->dir, carac) == 1){
-            printf("1");
+        codigoHuffman[tamCodigo] = '1';
+        if(EncontraCaracter(arv->dir, carac, codigoHuffman, tamCodigo + 1) == 1){
             return 1;
         }
 
