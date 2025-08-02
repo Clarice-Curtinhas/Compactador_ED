@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "compactador.h"
+#include "bitmap/bitmap.h"
 
 int main(int argc, const char **argv){
 
@@ -74,12 +75,19 @@ int main(int argc, const char **argv){
 
     printf("%s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
 
-    bytes_escritos = fwrite(buffer_compactado, 1, tam_buffer_compactado, arquivo_saida);
+    bitmap *bm = bitmapInit(tam_buffer_compactado * 8);
+
+    for (int i = tam_buffer_compactado - 1; i >= 0; i++){
+        bitmapAppendLeastSignificantBit(bm, buffer_compactado[i]);
+    }
+
+    bytes_escritos = fwrite(bitmapGetContents(bm), 1, bitmapGetLength(bm), arquivo_saida);
 
     if (bytes_escritos != tam_buffer_compactado){
         printf("Erro ao escrever no arquivo de saída\n");
     }
 
+    bitmapLibera(bm);
     fclose(arquivo_saida);
     free(buffer);
     free(buffer_compactado);
