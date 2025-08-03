@@ -11,8 +11,20 @@ tLista *CriaLista();
 
 void InsereLista(tLista *lista, tArvore *arv);
 
+tCelula *ProcuraLista(tLista *lista, char caracter);
+
+tArvore* RetornaArvore(tCelula *cel);
+
+int FrequenciaLista(tLista *lista);
+
+tArvore *CriaArvores(tLista *lista);
+
+tLista *RetornaSubLista(tCelula *prim, tCelula *ult);
+
 void OrdenaLista(tLista *lista, int qnt);
 
-void RetiraLista(tLista *lista, int id1, int id2, int qnt);
+void RetiraLista(tLista *lista, tCelula *cel);
+
+void ImprimeLista(tLista *lista);
 
 #endif

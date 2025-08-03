@@ -13,136 +13,50 @@
 #define NUMERO 2
 
 tArvore *Codifica(char *text){
-    tArvore *arvores[256], *arv_completa;
-    int tam, qnt = 0, existe;
+    tLista *lista = CriaLista();
+    int tam, qnt = 0, total = 0;
 
     tam = strlen(text);
 
     for(int i = 0; i < tam; i++){
         if(qnt == 0){
-            arvores[0] = CriaFolhas(text[0]);
+            InsereLista(lista, CriaFolhas(text[0]));
             qnt++;
         }
 
         else{
-            existe = 0;
+            tCelula *cel = ProcuraLista(lista, text[i]);
 
-            for(int j = 0; j < qnt; j++){
-
-                if(text[i] == RetornaCaracter(arvores[j])){
-                    AcrescimoDeCaracter(arvores[j]);
-
-                    existe = 1;
-                    break;
-                }
+            if(cel != NULL){
+                AcrescimoDeCaracter(RetornaArvore(cel));
             }
 
-            if(existe == 0){
-                arvores[qnt] = CriaFolhas(text[i]);
+            else{
+                InsereLista(lista, CriaFolhas(text[i]));
                 qnt++;
             }
-
         }
     }
 
-    OrdenaLista(arvores, qnt);
-
-    int total = 0;
-
-    for(int i = 0; i < qnt; i++){
-        total += RetornaFrequencia(arvores[i]);
-    }
+    OrdenaLista(lista, qnt);
+    total = FrequenciaLista(lista);
 
     printf("%d\n", total);
 
-    arv_completa = CriaHuffman(arvores, qnt);
-
-    return arv_completa;
+    return CriaHuffman(lista, total);
 }
 
-tArvore *CriaHuffman(tArvore **arv, int qnt){
+tArvore *CriaHuffman(tLista *lista, int qnt){
     tArvore *arvore;
-    int menorFreq1, idFreq1, menorFreq2, idFreq2;
+    int total = 0;
 
-    while(qnt != 1){
-        idFreq1 = 0;
-        idFreq2 = 1;
+    do{
+        arvore = CriaArvores(lista);
 
-        arvore = CriaGalhos(arv[idFreq1], arv[idFreq2]);
-
-        arv = RetiraLista(arv, idFreq1, idFreq2,  qnt);
-        qnt -= 2;
-
-        arv = AdicionaLista(arv, arvore, qnt);
-        qnt++;
-
-        for(int i = 0; i < qnt; i++){
-            printf("'%c' ", RetornaCaracter(arv[i]));
-            printf("- %d\n", RetornaFrequencia(arv[i]));
-        }
-        printf("\n");
-    }
+        total = RetornaFrequencia(arvore);
+    }while(total != qnt);
 
     return arvore;
-}
-
-void OrdenaLista(tArvore **arv, int qnt){
-    
-    if (qnt <= 1) return;
-
-    tArvore *x = arv[0];
-    int freq_x = RetornaFrequencia(arv[0]);
-    int a = 1;
-    int b = qnt - 1;
-
-    do {
-        while (a < qnt && RetornaFrequencia(arv[a]) <= freq_x) a++;
-        while (RetornaFrequencia(arv[b]) > freq_x) b--;
-
-        if (a < b){
-            tArvore *aux = arv[a];
-            arv[a] = arv[b];
-            arv[b] = aux;
-            a++;
-            b--;
-        } 
-    } while (a <= b);
-
-    arv[0] = arv[b];
-    arv[b] = x;
-
-    OrdenaLista(arv, b);
-    OrdenaLista(&arv[a], qnt - a);
-}
-
-tArvore **RetiraLista(tArvore **arv, int id1, int id2, int qnt){
-    int id[2];
-
-    if(id1 > id2){
-        id[0] = id1;
-        id[1] = id2;
-    }
-
-    else{
-        id[0] = id2;
-        id[1] = id1;
-    }
-
-    for(int j = 0; j < 2; j++){
-        for(int i = id[j]; i < qnt; i++){
-            if(i+1 < qnt) arv[i] = arv[i+1];
-
-            else arv[i] = NULL;
-        }
-    }
-
-    return arv;
-}
-
-tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt){
-    arv[qnt] = arvore;
-
-    return arv;
 }
 
 int EscreveTextoCodificado(char *text, tArvore *arv, unsigned char **buffer_compactado){

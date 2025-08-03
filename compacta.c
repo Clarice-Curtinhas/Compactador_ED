@@ -5,7 +5,6 @@
 #include "bitmap/bitmap.h"
 
 int main(int argc, const char **argv){
-
     if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
         return 1;
@@ -49,6 +48,16 @@ int main(int argc, const char **argv){
     }
 
     printf("%s\n", buffer);
+
+    tArvore *Arvore;
+
+    Arvore = Codifica(buffer);
+
+    ImprimeArvore(Arvore);
+
+    printf("\n");
+
+    EscreveCodigoHuffman(Arvore, buffer, strlen(buffer));
     
     fclose(arquivo_entrada);
 

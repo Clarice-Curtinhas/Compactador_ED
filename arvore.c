@@ -60,7 +60,11 @@ void ImprimeArvore(tArvore *arv){
     if(arv == NULL) printf(" < > ");
 
     else{
-        if(arv->carac) printf(" < '%c'", arv->carac);
+        if(arv->carac){
+            if(arv->carac != '\n') printf(" < '%c'", arv->carac);
+            else printf(" < quebra de linha");
+        }
+        
         else printf(" < %d", arv->freq);
 
         ImprimeArvore(arv->esq);

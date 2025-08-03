@@ -7,6 +7,8 @@
 #define COMPACTADOR_H
 
 #include "arvore.h"
+#include "lista.h"
+#include "bitmap/bitmap.h"
 
 /*
  * Lê um texto e codifica uma arvore de Huffman
@@ -24,7 +26,7 @@ tArvore *Codifica(char *text);
  * Pre-condicao: tipo "tArvore" diferente de NULL, qnt e total maior que 0
  * Pos-condicao: tipo "tArvore" diferente de NULL
 */
-tArvore *CriaHuffman(tArvore **arv, int qnt);
+tArvore *CriaHuffman(tLista *lista, int qnt);
 
 /*
  * Retira duas arvores do vetor de "tArvore"
@@ -33,7 +35,7 @@ tArvore *CriaHuffman(tArvore **arv, int qnt);
  * Pre-condicao: tipo "tArvore" diferente de NULL, ids válidos (que estejam dentro do vetor) e qnt maior ou igual a 2
  * Pos-condicao: nenhum
 */
-tArvore **RetiraLista(tArvore **arv, int id1,  int id2, int qnt);
+//tArvore **RetiraLista(tArvore **arv, int id1,  int id2, int qnt);
 
 /*
  * Ordena uma lista de árvores em ordem crescente de frequência usando Quick Sort
@@ -42,7 +44,7 @@ tArvore **RetiraLista(tArvore **arv, int id1,  int id2, int qnt);
  * Pre-condicao: vetor diferente de NULL
  * Pos-condicao: vetor ordenado
 */
-void OrdenaLista(tArvore **arv, int qtd);
+//void OrdenaLista(tArvore **arv, int qtd);
 
 /*
  * Adiciona uma arvore no vetor de "tArvore"
@@ -51,7 +53,7 @@ void OrdenaLista(tArvore **arv, int qtd);
  * Pre-condicao: tipo "tArvore" diferente de NULL para ser adicionado no final do vetor
  * Pos-condicao: o vetor "tArvore" differente de NULL
 */
-tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt);
+//tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt);
 
 /*
  * Escreve um texto com o código criado
