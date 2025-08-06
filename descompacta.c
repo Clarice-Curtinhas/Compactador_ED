@@ -1,11 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "compactador.h"
+#include "descompactador.h"
 
-/*int main(int argc, const char **argv){
+#define string "0001o1m01b1 001a01u1l001z1e01s1r"
 
-    if (argc < 2){
+int main(int argc, const char **argv){
+    char c1[35] = "0001o1m01b1 001a01u1l001z1e01s1r";
+    tArvore *arv;
+
+    c1[32] = '\0';
+
+    printf("%s\n", c1);
+
+    arv = DecodificaArvore(c1);
+
+    if(DecodificaArvore != NULL){
+        ImprimeArvore(DecodificaArvore(c1), NULL);
+    }
+
+    else printf("Não foi\n");
+
+    /*if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
         return 1;
     }
@@ -41,6 +57,8 @@
 
     // Lê os dados do arquivo e armazena no buffer
     bytes_lidos = fread(buffer, 1, tam_arquivo, arquivo_entrada);
+
+    printf("%ld, %s\n", bytes_lidos, buffer);
 
     if (bytes_lidos != tam_arquivo){
         printf("Erro ao ler o arquivo\n");
@@ -83,7 +101,7 @@
 
     fclose(arquivo_saida);
     free(buffer);
-    free(buffer_descompactado);
+    free(buffer_descompactado);*/
 
     return 0;
-}*/
+}

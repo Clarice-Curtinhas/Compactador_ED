@@ -190,9 +190,21 @@ void RetiraLista(tLista *lista, tCelula *cel){
 }
 
 void ImprimeLista(tLista *lista){
-    tCelula *aux;
+    /*tCelula *aux;
 
     for(aux = lista->prim; aux != NULL; aux = aux->prox){
         ImprimeArvore(aux->arv);
+    }*/
+}
+
+void LiberaLista(tLista *lista){
+    tCelula *aux, *prox;
+
+    aux = lista->prim;
+
+    while(aux != NULL){
+        prox = aux->prox;
+        free(aux);
+        aux = prox;
     }
 }

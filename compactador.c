@@ -13,6 +13,7 @@
 #define NUMERO 2
 
 tArvore *Codifica(char *text){
+    tArvore *arvore;
     tLista *lista = CriaLista();
     int tam, qnt = 0, total = 0;
 
@@ -41,9 +42,13 @@ tArvore *Codifica(char *text){
     OrdenaLista(lista, qnt);
     total = FrequenciaLista(lista);
 
-    printf("%d\n", total);
+    printf("func, codifica: %d\n", total);
 
-    return CriaHuffman(lista, total);
+    arvore = CriaHuffman(lista, total);
+
+    LiberaLista(lista);
+
+    return arvore;
 }
 
 tArvore *CriaHuffman(tLista *lista, int qnt){

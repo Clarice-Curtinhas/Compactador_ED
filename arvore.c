@@ -5,10 +5,14 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+
 #include "arvore.h"
 
 #define CARACTER 1
 #define NUMERO 2
+
+#define TAM_MAX_BITS 100
 
 typedef struct Arvore{
     char carac;
@@ -56,21 +60,71 @@ char RetornaCaracter(tArvore *arv){
     if(arv != NULL) return arv->carac;
 }
 
-void ImprimeArvore(tArvore *arv){
-    if(arv == NULL) printf(" < > ");
+unsigned char* ImprimeArvore(tArvore *arv, unsigned char *buffer){
+    size_t tam = strlen(buffer);
+    char no = '0', folha = '1', codigo[TAM_MAX_BITS];
+
+    if(arv == NULL){
+        printf(" < > ");
+    }
 
     else{
         if(arv->carac){
+            if(buffer != NULL){
+                buffer[tam] = folha;
+                buffer[tam+1] = arv->carac;
+                buffer[tam+2] = '\0';
+
+                // Usando os codigos dos caracteres
+
+                /*if(EncontraCaracter(arv, arv->carac, codigo, 0) == 1){
+                    strcat(buffer, codigo);
+                }
+                */
+            }
+
             if(arv->carac != '\n') printf(" < '%c'", arv->carac);
             else printf(" < quebra de linha");
         }
         
-        else printf(" < %d", arv->freq);
+        else{
+            if(buffer != NULL){
+                ///Acho que não vai precisar da parte comentada e ela tá dando problema
+                //char binario[TAM_MAX_BITS];
+                buffer[tam] = no;
+                buffer[tam+1] = '\0';
 
-        ImprimeArvore(arv->esq);
-        ImprimeArvore(arv->dir);
+                /*FrequenciaBinario(arv->freq, &*binario);
+                if(binario != NULL) strcat(buffer, binario);
+                else {
+                    buffer[tam+1] = '0';
+                    buffer[tam+2] = '\0';
+                }*/
+            }
+
+            printf(" < %d", arv->freq);
+            //binario[0] = '\0';
+        }
+
+        buffer = ImprimeArvore(arv->esq, buffer);
+        buffer = ImprimeArvore(arv->dir, buffer);
 
         printf(" >");
+    }
+
+    return buffer;
+}
+
+void FrequenciaBinario(int frequencia, char *bin){
+    int num;
+    char caract, c1 = '1', c0 = '0';
+
+    if(frequencia > 0){
+        FrequenciaBinario(frequencia/2, bin);
+        num = frequencia % 2;
+
+        if(num == 1) strcat(bin, &c1);
+        else strcat(bin, &c0);
     }
 }
 
@@ -86,29 +140,34 @@ void DesalocaArvore(tArvore *arv){
 }
 
 void EscreveCodigoHuffman(tArvore *arv, char *text, int tam){
-    char caracter[tam], *codigoHuffman;
-    int qntAnalisados = 0, jaAnalisado;
+    char caracter[tam], codigoHuffman[TAM_MAX_BITS];
+    int qntAnalisados = 0, jaFoi;
+
+    printf("%d\n", tam);
 
     for(int i = 0; i < tam; i++){
-        jaAnalisado = 0;
+        jaFoi = 0;
 
         if(i != 0){
             for(int j = 0; j < qntAnalisados; j++){
 
                 if(caracter[j] == text[i]){
-                    jaAnalisado = 1;
+                    jaFoi = 1;
                     break;
                 }
             }
         }
 
-        if(jaAnalisado == 1) continue;
-
-        else{
+        if(jaFoi == 0){
             printf("SCII: %d - %c - ", text[i], text[i]);
-            EncontraCaracter(arv, text[i], codigoHuffman, 0);
-            printf("%s", codigoHuffman);
-            printf(";\n");
+
+            if(EncontraCaracter(arv, text[i], codigoHuffman, 0) == 0)
+                printf("Erro! caracter não encontrado");
+            
+            else{
+                printf("%s", codigoHuffman);
+                printf(";\n");
+            }
 
             caracter[qntAnalisados] = text[i];
             qntAnalisados++;

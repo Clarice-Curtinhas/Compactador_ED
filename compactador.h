@@ -29,33 +29,6 @@ tArvore *Codifica(char *text);
 tArvore *CriaHuffman(tLista *lista, int qnt);
 
 /*
- * Retira duas arvores do vetor de "tArvore"
- * Inputs: um vetor de "tArvore", dois ids para serem retirados e o tamanho atual do vetor
- * Outputs: vetor do tipo "tArvore" sem as árvores de id1 e id2
- * Pre-condicao: tipo "tArvore" diferente de NULL, ids válidos (que estejam dentro do vetor) e qnt maior ou igual a 2
- * Pos-condicao: nenhum
-*/
-//tArvore **RetiraLista(tArvore **arv, int id1,  int id2, int qnt);
-
-/*
- * Ordena uma lista de árvores em ordem crescente de frequência usando Quick Sort
- * Inputs: vetor de árvores, quantidade de árvores no vetor
- * Outputs: nenhum
- * Pre-condicao: vetor diferente de NULL
- * Pos-condicao: vetor ordenado
-*/
-//void OrdenaLista(tArvore **arv, int qtd);
-
-/*
- * Adiciona uma arvore no vetor de "tArvore"
- * Inputs: um vetor de "tArvore", um tipo "tArvore" para ser adicionado e o tamanho atual do vetor
- * Outputs: vetor do tipo "tArvore" com a árvore adicionada no final do vetor
- * Pre-condicao: tipo "tArvore" diferente de NULL para ser adicionado no final do vetor
- * Pos-condicao: o vetor "tArvore" differente de NULL
-*/
-//tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt);
-
-/*
  * Escreve um texto com o código criado
  * Inputs: uma string com o texto que será escrito usando o código existente no "tArvore" e um ponteiro para o buffer em que o código será armazenado
  * Outputs: nenhum
