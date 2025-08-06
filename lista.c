@@ -44,7 +44,7 @@ void InsereLista(tLista *lista, tArvore *arv){
     }
 }
 
-tCelula *ProcuraLista(tLista *lista, char caracter){
+tCelula *ProcuraLista(tLista *lista, unsigned char caracter){
     tCelula *aux;
 
     for(aux = lista->prim; aux != NULL; aux = aux->prox){

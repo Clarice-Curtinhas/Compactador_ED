@@ -15,7 +15,7 @@ typedef struct Arvore tArvore;
  * Pre-condicao: info diferente de NULL
  * Pos-condicao: um tipo "tArvore" alocado e com os campos preenchidos
 */
-tArvore *CriaFolhas(char caracter);
+tArvore *CriaFolhas(unsigned char caracter);
 
 /*
  * Cria uma árvore nova com dois galhos
@@ -51,7 +51,7 @@ int RetornaFrequencia(tArvore *arv);
  * Pre-condicao: nenhuma 
  * Pos-condicao: nenhuma
 */
-char RetornaCaracter(tArvore *arv);
+unsigned char RetornaCaracter(tArvore *arv);
 
 /*
  * Imprime uma arvore
@@ -64,12 +64,12 @@ unsigned char* ImprimeArvore(tArvore *arv, unsigned char *buffer);
 
 /*
  * Imprime uma arvore
- * Inputs: Um tipo int com o valor da frequência a ser transformado em binário, um unsigned char para guardar o valor em binário
- * Outputs: Um unsigned char com o valor em binário
+ * Inputs: Um tipo int com o valor da frequência a ser transformado em binário, um unsigned unsigned char para guardar o valor em binário
+ * Outputs: Um unsigned unsigned char com o valor em binário
  * Pre-condicao: nenhuma 
  * Pos-condicao: nenhuma
 */
-void FrequenciaBinario(int frequencia, char *bin);
+void FrequenciaBinario(int frequencia, unsigned char *bin);
 
 /*
  * Desaloca uma arvore
@@ -87,7 +87,7 @@ void DesalocaArvore(tArvore *arv);
  * Pre-condicao: nenhuma 
  * Pos-condicao: nenhuma
 */
-void EscreveCodigoHuffman(tArvore *arv, char *text, int tam);
+void EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam);
 
 /*
  * Encontra caracter e escreve seu código
@@ -96,6 +96,6 @@ void EscreveCodigoHuffman(tArvore *arv, char *text, int tam);
  * Pre-condicao: nenhuma 
  * Pos-condicao: nenhuma
 */
-int EncontraCaracter(tArvore *arv, char carac, char *codigoHuffman, int tamCodigo);
+int EncontraCaracter(tArvore *arv, unsigned char carac, unsigned char *codigoHuffman, int tamCodigo);
 
 #endif

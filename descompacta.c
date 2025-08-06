@@ -4,7 +4,7 @@
 #include "descompactador.h"
 
 #define string "0001o1m01b1 001a01u1l001z1e01s1r"
-
+/*
 int main(int argc, const char **argv){
     char c1[35] = "0001o1m01b1 001a01u1l001z1e01s1r";
     tArvore *arv;
@@ -21,7 +21,7 @@ int main(int argc, const char **argv){
 
     else printf("Não foi\n");
 
-    /*if (argc < 2){
+    if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
         return 1;
     }
@@ -101,7 +101,7 @@ int main(int argc, const char **argv){
 
     fclose(arquivo_saida);
     free(buffer);
-    free(buffer_descompactado);*/
+    free(buffer_descompactado);
 
     return 0;
-}
+}*/

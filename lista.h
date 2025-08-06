@@ -28,7 +28,7 @@ void InsereLista(tLista *lista, tArvore *arv);
  * e um char com o caracter que estamos procurando
  * Outputs: ponteiro para a celula onde o caracter se encontra
  */
-tCelula *ProcuraLista(tLista *lista, char caracter);
+tCelula *ProcuraLista(tLista *lista, unsigned char caracter);
 
 /*
  * Retorna a arvore dentro da celula

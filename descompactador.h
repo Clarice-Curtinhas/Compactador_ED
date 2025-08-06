@@ -12,7 +12,7 @@
  * Pre-condicao: string diferente de NULL
  * Pos-condicao: tipo "tArvore" diferente de NULL
 */
-tArvore *DecodificaArvore(char *arvore);
+tArvore *DecodificaArvore(unsigned char *arvore);
 
 /*
  * Escreve um texto com o código existente na arvore dentro do arquivo
@@ -21,6 +21,6 @@ tArvore *DecodificaArvore(char *arvore);
  * Pre-condicao: string diferente de NULL e um "tArvore" diferente de NULL
  * Pos-condicao: nenhuma
 */
-int EscreveTextoDecodificado(unsigned char **buffer_compactado, tArvore *arv, char *text);
+int EscreveTextoDecodificado(unsigned char **buffer_compactado, tArvore *arv, unsigned char *text);
 
 #endif

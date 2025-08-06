@@ -7,7 +7,6 @@
 
 #define TAM_MAX_BITS 8
 
-/*
 int main(int argc, const char **argv){
     if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
@@ -72,7 +71,7 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-    tArvore *arvoreHuffman = Codifica(buffer);
+    tArvore *arvoreHuffman = Codifica(buffer, tam_arquivo);
 
     EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
     tam_buffer_compactado = EscreveTextoCodificado(buffer, arvoreHuffman, &buffer_compactado);
@@ -85,18 +84,20 @@ int main(int argc, const char **argv){
 
     bitmap *bm = bitmapInit(tam_buffer_compactado * TAM_MAX_BITS);
 
-    //bitmapLimpa(bm);
+    bitmapLimpa(bm);
 
-    //for (int i = tam_buffer_compactado - 1; i >= 0; i--){
-    //    bitmapAppendLeastSignificantBit(bm, buffer_compactado[i]);
-    //    printf("\n%s\n\n", bitmapGetContents(bm));
-    //}
+    for (int i = tam_buffer_compactado - 1; i >= 0; i--){
+        bitmapAppendLeastSignificantBit(bm, buffer_compactado[i]);
+        printf("\n%s\n\n", bitmapGetContents(bm));
+    }
 
-    //printf("\n%s\n\n", bitmapGetContents(bm));
+    for (int i=0; i<bitmapGetLength(bm); i++) {
+		printf("bit #%d = %0xh\n", i, bitmapGetBit(bm, i));
+	}
 
-   // bytes_escritos = fwrite(bitmapGetContents(bm), 1, bitmapGetLength(bm), arquivo_saida);
+    bytes_escritos = fwrite(bitmapGetContents(bm), 1, bitmapGetLength(bm), arquivo_saida);
 
-    bytes_escritos = fwrite(&buffer_compactado, 1, tam_buffer_compactado, arquivo_saida);
+   // bytes_escritos = fwrite(&buffer_compactado, 1, tam_buffer_compactado, arquivo_saida);
 
     ///Desse jeito ele escreve o que a gnt quer em binário só não sei se é assim que faz de verdade
     if (bytes_escritos != tam_buffer_compactado){
@@ -110,4 +111,4 @@ int main(int argc, const char **argv){
     free(buffer_compactado);
 
     return 0;
-}*/
+}

@@ -4,7 +4,7 @@
 
 #include "descompactador.h"
 
-tArvore *DecodificaArvore(char *arvore){
+tArvore *DecodificaArvore(unsigned char *arvore){
     tArvore *arv;
 
     if(arvore[0] == '1'){
@@ -25,4 +25,4 @@ tArvore *DecodificaArvore(char *arvore){
     return arv;
 }
 
-int EscreveTextoDecodificado(unsigned char **buffer_compactado, tArvore *arv, char *text);
+int EscreveTextoDecodificado(unsigned char **buffer_compactado, tArvore *arv, unsigned char *text);

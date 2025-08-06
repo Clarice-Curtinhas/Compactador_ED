@@ -15,13 +15,13 @@
 #define TAM_MAX_BITS 100
 
 typedef struct Arvore{
-    char carac;
+    unsigned char carac;
     int freq;
     tArvore *esq;
     tArvore *dir;
 } tArvore;
 
-tArvore *CriaFolhas(char caracter){
+tArvore *CriaFolhas(unsigned char caracter){
     tArvore *arv;
 
     arv = (tArvore*) calloc(1, sizeof(tArvore));
@@ -56,13 +56,13 @@ int RetornaFrequencia(tArvore *arv){
     if(arv != NULL) return arv->freq;
 }
 
-char RetornaCaracter(tArvore *arv){
+unsigned char RetornaCaracter(tArvore *arv){
     if(arv != NULL) return arv->carac;
 }
 
 unsigned char* ImprimeArvore(tArvore *arv, unsigned char *buffer){
     size_t tam = strlen(buffer);
-    char no = '0', folha = '1', codigo[TAM_MAX_BITS];
+    unsigned char no = '0', folha = '1', codigo[TAM_MAX_BITS];
 
     if(arv == NULL){
         printf(" < > ");
@@ -90,7 +90,7 @@ unsigned char* ImprimeArvore(tArvore *arv, unsigned char *buffer){
         else{
             if(buffer != NULL){
                 ///Acho que não vai precisar da parte comentada e ela tá dando problema
-                //char binario[TAM_MAX_BITS];
+                //unsigned char binario[TAM_MAX_BITS];
                 buffer[tam] = no;
                 buffer[tam+1] = '\0';
 
@@ -115,9 +115,9 @@ unsigned char* ImprimeArvore(tArvore *arv, unsigned char *buffer){
     return buffer;
 }
 
-void FrequenciaBinario(int frequencia, char *bin){
+void FrequenciaBinario(int frequencia, unsigned char *bin){
     int num;
-    char caract, c1 = '1', c0 = '0';
+    unsigned char caract, c1 = '1', c0 = '0';
 
     if(frequencia > 0){
         FrequenciaBinario(frequencia/2, bin);
@@ -139,8 +139,8 @@ void DesalocaArvore(tArvore *arv){
     }
 }
 
-void EscreveCodigoHuffman(tArvore *arv, char *text, int tam){
-    char caracter[tam], codigoHuffman[TAM_MAX_BITS];
+void EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
+    unsigned char caracter[tam], codigoHuffman[TAM_MAX_BITS];
     int qntAnalisados = 0, jaFoi;
 
     printf("%d\n", tam);
@@ -177,7 +177,7 @@ void EscreveCodigoHuffman(tArvore *arv, char *text, int tam){
     printf("\n");
 }
 
-int EncontraCaracter(tArvore *arv, char carac, char *codigoHuffman, int tamCodigo){
+int EncontraCaracter(tArvore *arv, unsigned char carac, unsigned char *codigoHuffman, int tamCodigo){
     if(arv->carac){
         if(carac == arv->carac) {
             codigoHuffman[tamCodigo] = '\0';

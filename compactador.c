@@ -12,12 +12,15 @@
 #define CARACTER 1
 #define NUMERO 2
 
-tArvore *Codifica(char *text){
+tArvore *Codifica(unsigned char *text, long tam){
     tArvore *arvore;
     tLista *lista = CriaLista();
-    int tam, qnt = 0, total = 0;
+    int qnt = 0, total = 0;
 
-    tam = strlen(text);
+    if(text == NULL){
+        printf("ERRO: texto não lido");
+        return NULL;
+    }
 
     for(int i = 0; i < tam; i++){
         if(qnt == 0){
@@ -64,9 +67,9 @@ tArvore *CriaHuffman(tLista *lista, int qnt){
     return arvore;
 }
 
-int EscreveTextoCodificado(char *text, tArvore *arv, unsigned char **buffer_compactado){
+int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char **buffer_compactado){
     int tam, tamCodigo = 0;
-    char *codigoHuffman;
+    unsigned char *codigoHuffman;
 
     tam = strlen(text);
 

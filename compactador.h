@@ -17,7 +17,7 @@
  * Pre-condicao: string diferente de NULL
  * Pos-condicao: tipo "tArvore" diferente de NULL
 */
-tArvore *Codifica(char *text);
+tArvore *Codifica(unsigned char *text, long tam);
 
 /*
  * Codifica uma arvore de Huffman
@@ -35,6 +35,6 @@ tArvore *CriaHuffman(tLista *lista, int qnt);
  * Pre-condicao: string diferente de NULL e um "tArvore" diferente de NULL
  * Pos-condicao: nenhuma
 */
-int EscreveTextoCodificado(char *text, tArvore *arv, unsigned char **buffer_compactado);
+int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char **buffer_compactado);
 
 #endif
