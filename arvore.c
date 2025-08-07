@@ -60,9 +60,28 @@ unsigned char RetornaCaracter(tArvore *arv){
     if(arv != NULL) return arv->carac;
 }
 
-unsigned char* ImprimeArvore(tArvore *arv, unsigned char *buffer){
-    size_t tam = strlen(buffer);
-    unsigned char no = '0', folha = '1', codigo[TAM_MAX_BITS];
+unsigned char* ArvoreCompactada(tArvore *arv, unsigned char *buffer, int *tam){
+    if(arv->carac){
+        buffer[*tam] = '1';
+        buffer[*tam+1] = arv->carac;
+        buffer[*tam+2] = '\0';
+
+        *tam += 2;
+    }
+
+    else{
+        buffer[*tam] = '0';
+        buffer[*tam+1] = '\0';
+        *tam += 1;
+
+        buffer = ArvoreCompactada(arv->esq, buffer, tam);
+        buffer = ArvoreCompactada(arv->dir, buffer, tam);
+    }
+
+    return buffer;
+}
+
+void ImprimeArvore(tArvore *arv){
 
     if(arv == NULL){
         printf(" < > ");
@@ -70,61 +89,18 @@ unsigned char* ImprimeArvore(tArvore *arv, unsigned char *buffer){
 
     else{
         if(arv->carac){
-            if(buffer != NULL){
-                buffer[tam] = folha;
-                buffer[tam+1] = arv->carac;
-                buffer[tam+2] = '\0';
-
-                // Usando os codigos dos caracteres
-
-                /*if(EncontraCaracter(arv, arv->carac, codigo, 0) == 1){
-                    strcat(buffer, codigo);
-                }
-                */
-            }
-
             if(arv->carac != '\n') printf(" < '%c'", arv->carac);
             else printf(" < quebra de linha");
         }
         
         else{
-            if(buffer != NULL){
-                ///Acho que não vai precisar da parte comentada e ela tá dando problema
-                //unsigned char binario[TAM_MAX_BITS];
-                buffer[tam] = no;
-                buffer[tam+1] = '\0';
-
-                /*FrequenciaBinario(arv->freq, &*binario);
-                if(binario != NULL) strcat(buffer, binario);
-                else {
-                    buffer[tam+1] = '0';
-                    buffer[tam+2] = '\0';
-                }*/
-            }
-
             printf(" < %d", arv->freq);
-            //binario[0] = '\0';
         }
 
-        buffer = ImprimeArvore(arv->esq, buffer);
-        buffer = ImprimeArvore(arv->dir, buffer);
+        ImprimeArvore(arv->esq);
+        ImprimeArvore(arv->dir);
 
         printf(" >");
-    }
-
-    return buffer;
-}
-
-void FrequenciaBinario(int frequencia, unsigned char *bin){
-    int num;
-    unsigned char caract, c1 = '1', c0 = '0';
-
-    if(frequencia > 0){
-        FrequenciaBinario(frequencia/2, bin);
-        num = frequencia % 2;
-
-        if(num == 1) strcat(bin, &c1);
-        else strcat(bin, &c0);
     }
 }
 
@@ -178,7 +154,7 @@ void EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
 }
 
 int EncontraCaracter(tArvore *arv, unsigned char carac, unsigned char *codigoHuffman, int tamCodigo){
-    codigoHuffman = (unsigned char *) realloc(codigoHuffman, tamCodigo + 1); // Acho que isso está errado, mas reduziu muito os erros de valgrind
+   //codigoHuffman = (unsigned char *) realloc(codigoHuffman, tamCodigo + 1); // Acho que isso está errado, mas reduziu muito os erros de valgrind
 
     if(arv->carac){
         if(carac == arv->carac) {

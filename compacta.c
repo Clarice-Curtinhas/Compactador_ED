@@ -62,6 +62,7 @@ int main(int argc, const char **argv){
     unsigned char *buffer_compactado, *arv_bin_compactada;
     size_t bytes_escritos, tamBin;
     long tam_buffer_compactado;
+    int tam_inic = 0;
 
     strcpy(nome_arquivo_compactado, nome_arquivo);
     strcat(nome_arquivo_compactado, ".comp");
@@ -74,12 +75,17 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-    tArvore *arvoreHuffman = Codifica(buffer, tam_arquivo);
+   // tArvore *arvoreHuffman = Codifica(buffer, tam_arquivo);
+    tArvore *arvoreHuffman = Codifica(buffer);
+
+    arv_bin_compactada = (unsigned char*) calloc(RetornaFrequencia(arvoreHuffman), sizeof(unsigned char*));
+    arv_bin_compactada[0] = '\0';
 
     EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
     tam_buffer_compactado = EscreveTextoCodificado(buffer, arvoreHuffman, buffer_compactado);
 
-    ImprimeArvore(arvoreHuffman, arv_bin_compactada);
+    ImprimeArvore(arvoreHuffman);
+    arv_bin_compactada = ArvoreCompactada(arvoreHuffman, arv_bin_compactada, &tam_inic);
 
     printf("\n\nArvore pronta: '%s'\n\n", arv_bin_compactada);
 
@@ -113,6 +119,10 @@ int main(int argc, const char **argv){
 
     bitmapLibera(bm);
     fclose(arquivo_saida);
+
+    DesalocaArvore(arvoreHuffman);
+
+    free(arv_bin_compactada);
 
     free(buffer);
     free(buffer_compactado);

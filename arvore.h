@@ -54,22 +54,22 @@ int RetornaFrequencia(tArvore *arv);
 unsigned char RetornaCaracter(tArvore *arv);
 
 /*
- * Imprime uma arvore
- * Inputs: Um tipo "tArvore", um unsigned char para guardar a arvore
+ * Cria uma versão compactada da arvore
+ * Inputs: Um tipo "tArvore", um unsigned char para guardar a arvore, e um ponteiro para a posição do buffer escrita pela última vez
  * Outputs: um unsigned char com as informações da árvore
  * Pre-condicao: nenhuma 
  * Pos-condicao: nenhuma
 */
-unsigned char* ImprimeArvore(tArvore *arv, unsigned char *buffer);
+unsigned char* ArvoreCompactada(tArvore *arv, unsigned char *buffer, int *tam);
 
 /*
  * Imprime uma arvore
- * Inputs: Um tipo int com o valor da frequência a ser transformado em binário, um unsigned unsigned char para guardar o valor em binário
- * Outputs: Um unsigned unsigned char com o valor em binário
+ * Inputs: Um tipo "tArvore"
+ * Outputs: nenhum
  * Pre-condicao: nenhuma 
  * Pos-condicao: nenhuma
 */
-void FrequenciaBinario(int frequencia, unsigned char *bin);
+void ImprimeArvore(tArvore *arv);
 
 /*
  * Desaloca uma arvore
