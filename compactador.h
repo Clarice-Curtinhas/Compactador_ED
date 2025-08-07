@@ -35,6 +35,6 @@ tArvore *CriaHuffman(tLista *lista, int qnt);
  * Pre-condicao: string diferente de NULL e um "tArvore" diferente de NULL
  * Pos-condicao: nenhuma
 */
-int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char **buffer_compactado);
+int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char *buffer_compactado);
 
 #endif

@@ -178,6 +178,8 @@ void EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
 }
 
 int EncontraCaracter(tArvore *arv, unsigned char carac, unsigned char *codigoHuffman, int tamCodigo){
+    codigoHuffman = (unsigned char *) realloc(codigoHuffman, tamCodigo + 1); // Acho que isso está errado, mas reduziu muito os erros de valgrind
+
     if(arv->carac){
         if(carac == arv->carac) {
             codigoHuffman[tamCodigo] = '\0';

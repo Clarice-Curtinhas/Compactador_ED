@@ -32,8 +32,8 @@ int main(int argc, const char **argv){
     tam_arquivo = ftell(arquivo_entrada);
     fseek(arquivo_entrada, 0, SEEK_SET);
 
-    // Aloca um buffer para armazenar os dados do arquivo
-    buffer = (unsigned char*) calloc(1, tam_arquivo);
+    // Aloca um buffer para armazenar os dados do arquivo. Aloca "tam_arquivo + 1" posições para adicionar um \0.
+    buffer = (unsigned char*) calloc(tam_arquivo + 1, sizeof(unsigned char));
 
     if (buffer == NULL){
         printf("Erro ao alocar memória\n");
@@ -41,7 +41,7 @@ int main(int argc, const char **argv){
     }
 
     // Lê os dados do arquivo e armazena no buffer
-    bytes_lidos = fread(buffer, 1, tam_arquivo, arquivo_entrada);
+    bytes_lidos = fread(buffer, sizeof(unsigned char), tam_arquivo, arquivo_entrada);
 
     if (bytes_lidos != tam_arquivo){
         printf("Erro ao ler o arquivo\n");
@@ -50,7 +50,10 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-    printf("%s\n", buffer);
+    buffer[tam_arquivo] = '\0';
+    printf("Teste buffer: %s\n", buffer);
+
+    printf("\n");
     
     fclose(arquivo_entrada);
 
@@ -74,30 +77,34 @@ int main(int argc, const char **argv){
     tArvore *arvoreHuffman = Codifica(buffer, tam_arquivo);
 
     EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
-    tam_buffer_compactado = EscreveTextoCodificado(buffer, arvoreHuffman, &buffer_compactado);
+    tam_buffer_compactado = EscreveTextoCodificado(buffer, arvoreHuffman, buffer_compactado);
 
     ImprimeArvore(arvoreHuffman, arv_bin_compactada);
 
     printf("\n\nArvore pronta: '%s'\n\n", arv_bin_compactada);
 
-    printf("%s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
+    printf("Buffer compactado: %s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
 
     bitmap *bm = bitmapInit(tam_buffer_compactado * TAM_MAX_BITS);
 
-    bitmapLimpa(bm);
+    //bitmapLimpa(bm);
 
-    for (int i = tam_buffer_compactado - 1; i >= 0; i--){
-        bitmapAppendLeastSignificantBit(bm, buffer_compactado[i]);
-        printf("\n%s\n\n", bitmapGetContents(bm));
+    for (int i = 0; i < tam_buffer_compactado; i++){
+        for (int j = 7; j >= 0; j--){
+            unsigned char bit = (buffer_compactado[i] >> j) & 1;
+            bitmapAppendLeastSignificantBit(bm, bit);
+        }
+        
+        //printf("\n%s\n\n", bitmapGetContents(bm));
     }
 
-    for (int i=0; i<bitmapGetLength(bm); i++) {
+    /*for (int i=0; i<bitmapGetLength(bm); i++) {
 		printf("bit #%d = %0xh\n", i, bitmapGetBit(bm, i));
-	}
+	}*/
 
-    bytes_escritos = fwrite(bitmapGetContents(bm), 1, bitmapGetLength(bm), arquivo_saida);
+    bytes_escritos = fwrite(bitmapGetContents(bm), 1, (bitmapGetLength(bm) + 7) / 8, arquivo_saida);
 
-   // bytes_escritos = fwrite(&buffer_compactado, 1, tam_buffer_compactado, arquivo_saida);
+    //bytes_escritos = fwrite(buffer_compactado, 1, tam_buffer_compactado, arquivo_saida);
 
     ///Desse jeito ele escreve o que a gnt quer em binário só não sei se é assim que faz de verdade
     if (bytes_escritos != tam_buffer_compactado){

@@ -67,7 +67,7 @@ tArvore *CriaHuffman(tLista *lista, int qnt){
     return arvore;
 }
 
-int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char **buffer_compactado){
+int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char *buffer_compactado){
     int tam, tamCodigo = 0;
     unsigned char *codigoHuffman;
 
@@ -82,11 +82,12 @@ int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char **bu
     }
     printf("\n");
 
-    *buffer_compactado = (unsigned char *) calloc(tamCodigo, sizeof(unsigned char));
+    buffer_compactado = (unsigned char *) calloc(tamCodigo + 1, sizeof(unsigned char));
+    buffer_compactado[tamCodigo] = '\0';
     
     for(int i = 0; i < tam; i++){
         EncontraCaracter(arv, text[i], codigoHuffman, 0);
-        strcat(*buffer_compactado, codigoHuffman);
+        strcat(buffer_compactado, codigoHuffman);
     }
 
     return tamCodigo;
