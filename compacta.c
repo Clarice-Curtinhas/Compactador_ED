@@ -81,49 +81,43 @@ int main(int argc, const char **argv){
     arv_bin_compactada = (unsigned char*) calloc(RetornaFrequencia(arvoreHuffman), sizeof(unsigned char*));
     arv_bin_compactada[0] = '\0';
 
-    EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
-    tam_buffer_compactado = EscreveTextoCodificado(buffer, arvoreHuffman, buffer_compactado);
+    tam_buffer_compactado = EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
+    printf("Tam buffer compactado: %ld\n", tam_buffer_compactado);
+
+    buffer_compactado = (unsigned char *) calloc(tam_buffer_compactado + 1, sizeof(unsigned char));
+    buffer_compactado[tam_buffer_compactado] = '\0';
+
+    EscreveTextoCodificado(buffer, arvoreHuffman, buffer_compactado);
+    printf("Buffer compactado: %s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
 
     ImprimeArvore(arvoreHuffman);
     arv_bin_compactada = ArvoreCompactada(arvoreHuffman, arv_bin_compactada, &tam_inic);
 
     printf("\n\nArvore pronta: '%s'\n\n", arv_bin_compactada);
 
-    printf("Buffer compactado: %s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
-
     bitmap *bm = bitmapInit(tam_buffer_compactado * TAM_MAX_BITS);
 
-    //bitmapLimpa(bm);
-
     for (int i = 0; i < tam_buffer_compactado; i++){
-        for (int j = 7; j >= 0; j--){
-            unsigned char bit = (buffer_compactado[i] >> j) & 1;
-            bitmapAppendLeastSignificantBit(bm, bit);
-        }
-        
-        //printf("\n%s\n\n", bitmapGetContents(bm));
+        bitmapAppendLeastSignificantBit(bm, buffer_compactado[i]);
     }
 
     /*for (int i=0; i<bitmapGetLength(bm); i++) {
 		printf("bit #%d = %0xh\n", i, bitmapGetBit(bm, i));
 	}*/
 
+    fwrite(arv_bin_compactada, 1, strlen(arv_bin_compactada), arquivo_saida);
     bytes_escritos = fwrite(bitmapGetContents(bm), 1, (bitmapGetLength(bm) + 7) / 8, arquivo_saida);
 
     //bytes_escritos = fwrite(buffer_compactado, 1, tam_buffer_compactado, arquivo_saida);
 
-    ///Desse jeito ele escreve o que a gnt quer em binário só não sei se é assim que faz de verdade
     if (bytes_escritos != tam_buffer_compactado){
         printf("Erro ao escrever no arquivo de saída\n");
     }
 
-    bitmapLibera(bm);
     fclose(arquivo_saida);
-
+    bitmapLibera(bm);
     DesalocaArvore(arvoreHuffman);
-
     free(arv_bin_compactada);
-
     free(buffer);
     free(buffer_compactado);
 

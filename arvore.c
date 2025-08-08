@@ -115,9 +115,9 @@ void DesalocaArvore(tArvore *arv){
     }
 }
 
-void EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
+int EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
     unsigned char caracter[tam], codigoHuffman[TAM_MAX_BITS];
-    int qntAnalisados = 0, jaFoi;
+    int qntAnalisados = 0, tamHuffman = 0, jaFoi;
 
     printf("%d\n", tam);
 
@@ -141,6 +141,7 @@ void EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
                 printf("Erro! caracter não encontrado");
             
             else{
+                tamHuffman += strlen(codigoHuffman);
                 printf("%s", codigoHuffman);
                 printf(";\n");
             }
@@ -151,10 +152,11 @@ void EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
     }
 
     printf("\n");
+
+    return tamHuffman; // Tamnho a ser alocado para o buffer compactado no "compacta.c"
 }
 
 int EncontraCaracter(tArvore *arv, unsigned char carac, unsigned char *codigoHuffman, int tamCodigo){
-   //codigoHuffman = (unsigned char *) realloc(codigoHuffman, tamCodigo + 1); // Acho que isso está errado, mas reduziu muito os erros de valgrind
 
     if(arv->carac){
         if(carac == arv->carac) {

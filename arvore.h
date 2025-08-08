@@ -87,7 +87,7 @@ void DesalocaArvore(tArvore *arv);
  * Pre-condicao: nenhuma 
  * Pos-condicao: nenhuma
 */
-void EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam);
+int EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam);
 
 /*
  * Encontra caracter e escreve seu código
