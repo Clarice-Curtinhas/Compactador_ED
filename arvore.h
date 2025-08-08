@@ -72,6 +72,15 @@ unsigned char* ArvoreCompactada(tArvore *arv, unsigned char *buffer, int *tam);
 void ImprimeArvore(tArvore *arv);
 
 /*
+ * Navega a árvore de acordo com o seu código binário de compactação
+ * Inputs: Um tipo unsigned char para um binário e uma árvore com os códigos correspondentes
+ * Outputs: um unsigned char com o caracter correspondente
+ * Pre-condicao: nenhuma 
+ * Pos-condicao: nenhuma
+*/
+unsigned char* ProcuraBinario(unsigned char *vect, tArvore *arv);
+
+/*
  * Desaloca uma arvore
  * Inputs: Um tipo "tArvore"
  * Outputs: nenhum

@@ -104,6 +104,41 @@ void ImprimeArvore(tArvore *arv){
     }
 }
 
+unsigned char* ProcuraBinario(unsigned char *vect, tArvore *arv){
+    tArvore *aux;
+    int qnt = 0;
+    unsigned char *texto;
+
+    texto = (unsigned char*) calloc(strlen(vect), sizeof(unsigned char));
+
+    printf("\n%s\n", vect);
+
+    for(int i = 0; vect[i] != '\0'; i++){
+        aux = arv;
+
+        while(vect[i] != ' '){
+            if(vect[i] == '0'){
+                aux = aux->esq;
+            }
+
+            else if(vect[i] == '1'){
+                aux = aux->dir;
+            }
+
+            else break;
+            i++;
+        }
+
+        if(aux->carac){
+            texto[qnt] = aux->carac;
+            texto[qnt+1] = '\0';
+            qnt++;
+        }
+    }
+
+    return texto;
+}
+
 void DesalocaArvore(tArvore *arv){
     if(arv == NULL) return;
 

@@ -4,24 +4,31 @@
 #include "descompactador.h"
 
 #define string "0001o1m01b1 001a01u1l001z1e01s1r"
-/*
+#define texto "010 000 001 011 1101 1110 1110 1101 011 010 000 001 010 000 001 011 100 1111 100 1111 100 011 100 1100 1010 1011"
+
 int main(int argc, const char **argv){
-    char c1[35] = "0001o1m01b1 001a01u1l001z1e01s1r";
+    unsigned char c1[35] = "0001o1m01b1 001a01u1l001z1e01s1r", text[118] = texto;
+    unsigned char *textoDescompac;
+    int tam = 0;
     tArvore *arv;
 
     c1[32] = '\0';
 
     printf("%s\n", c1);
 
-    arv = DecodificaArvore(c1);
+    arv = DecodificaArvore(c1, &tam);
 
-    if(DecodificaArvore != NULL){
-        ImprimeArvore(DecodificaArvore(c1), NULL);
+    if(arv!= NULL){
+        ImprimeArvore(arv);
     }
 
     else printf("Não foi\n");
 
-    if (argc < 2){
+    EscreveTextoDecodificado(&textoDescompac, arv, texto);
+
+    printf("%s\n", textoDescompac);
+
+   /*if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
         return 1;
     }
@@ -101,7 +108,11 @@ int main(int argc, const char **argv){
 
     fclose(arquivo_saida);
     free(buffer);
-    free(buffer_descompactado);
+    free(buffer_descompactado);*/
+
+    free(textoDescompac);
+
+    DesalocaArvore(arv);
 
     return 0;
-}*/
+}
