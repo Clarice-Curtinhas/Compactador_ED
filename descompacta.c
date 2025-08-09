@@ -5,14 +5,16 @@
 
 #define string "0001o1m01b1 001a01u1l001z1e01s1r"
 #define texto "010 000 001 011 1101 1110 1110 1101 011 010 000 001 010 000 001 011 100 1111 100 1111 100 011 100 1100 1010 1011"
+#define MAX_TAM_ARVORE 500
+#define TAM_MAX_BITS 8
 
 int main(int argc, const char **argv){
     unsigned char c1[35] = "0001o1m01b1 001a01u1l001z1e01s1r", text[118] = texto;
-    unsigned char *textoDescompac;
-    int tam = 0;
+    unsigned char *textoDescompac, arvore_arq[MAX_TAM_ARVORE];
+    int tam_arvore = 0;
     tArvore *arv;
 
-    c1[32] = '\0';
+    /*c1[32] = '\0';
 
     printf("%s\n", c1);
 
@@ -26,17 +28,20 @@ int main(int argc, const char **argv){
 
     EscreveTextoDecodificado(&textoDescompac, arv, texto);
 
-    printf("%s\n", textoDescompac);
-
-   /*if (argc < 2){
+    printf("%s\n", textoDescompac);*/
+    
+    //minha parte começa aqui
+    
+    if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
         return 1;
     }
 
     FILE *arquivo_entrada;
-    char nome_arquivo[100];
-    long tam_arquivo;
+    char nome_arquivo[100], caracter, caracter_binario;
+    long tam_arquivo, tam_binario;
     unsigned char *buffer;
+    int byte[TAM_MAX_BITS], lidos = 0;
     size_t bytes_lidos;
 
     strcpy(nome_arquivo, argv[1]);
@@ -47,15 +52,28 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-    // Calcula o tamanho do arquivo
-    // OBS.: preciso ver um jeito de desconsiderar os bytes que armazenam a árvore de compactação no início do arquivo
-    // e armazená-los em uma árvore para ser utilizada na função de descompactação
+    // Lê a árvore no início do arquivo binário
+    while(1){
+        fscanf(arquivo_entrada, "%c", &caracter);
+        if (caracter == '/') break;
+
+        arvore_arq[tam_arvore] = caracter;
+        printf("%c ", caracter);
+        tam_arvore++;
+    }
+
+    // Cria a árvore
+    tam_arvore = 0;
+    arv = DecodificaArvore(arvore_arq, &tam_arvore);
+
+    // Calcula o tamanho da parte binária do arquivo
     fseek(arquivo_entrada, 0, SEEK_END);
     tam_arquivo = ftell(arquivo_entrada);
-    fseek(arquivo_entrada, 0, SEEK_SET);
+    fseek(arquivo_entrada, tam_arvore + 1, SEEK_SET);
+    tam_binario = tam_arquivo - (tam_arvore + 1);
 
     // Aloca um buffer para armazenar os dados do arquivo
-    buffer = (unsigned char*) calloc(1, tam_arquivo);
+    buffer = (unsigned char*) calloc(tam_binario + 1, sizeof(unsigned char));
 
     if (buffer == NULL){
         printf("Erro ao alocar memória\n");
@@ -63,11 +81,31 @@ int main(int argc, const char **argv){
     }
 
     // Lê os dados do arquivo e armazena no buffer
-    bytes_lidos = fread(buffer, 1, tam_arquivo, arquivo_entrada);
+    unsigned char codigo[tam_binario * TAM_MAX_BITS];
 
-    printf("%ld, %s\n", bytes_lidos, buffer);
+    while (1){
+        if (!fread(&caracter_binario, 1, 1, arquivo_entrada)) break;
 
-    if (bytes_lidos != tam_arquivo){
+        printf("%c", caracter_binario);
+
+        for (int i = 0; i < TAM_MAX_BITS; i++){
+            //byte[7 - i] = (caracter_binario >> i) & 1;
+
+            buffer[lidos] = (unsigned char)((caracter_binario >> (7 - i)) & 1);
+            lidos++;
+        }
+    }
+    
+    for (int i = 0; i < tam_binario; i++) {
+        printf("%u", buffer[i]);
+    }
+    printf("\n");
+    //buffer[tam_binario] = '\0';
+    //printf("Buffer: %s\n", buffer);
+
+    //printf("%ld, %s\n", bytes_lidos, buffer);
+
+    if (bytes_lidos != tam_binario){
         printf("Erro ao ler o arquivo\n");
         free(buffer);
         fclose(arquivo_entrada);
@@ -76,7 +114,7 @@ int main(int argc, const char **argv){
     
     fclose(arquivo_entrada);
 
-    FILE *arquivo_saida;
+    /*FILE *arquivo_saida;
     char nome_arquivo_descompactado[100];
     unsigned char *buffer_descompactado;
     size_t bytes_escritos;
@@ -84,10 +122,12 @@ int main(int argc, const char **argv){
 
     int tam_nome_arquivo = strlen(nome_arquivo);
 
-    // Retira o ".comp" do nome do arquivo
+    // Retira o ".comp" do nome do arquivo e adiciona ".descomp"
     for (int i = 0; i < tam_nome_arquivo - 5; i++){
         nome_arquivo_descompactado[i] = nome_arquivo[i];
     }
+
+    strcat(nome_arquivo_descompactado, ".descomp");
 
     arquivo_saida = fopen(nome_arquivo_descompactado, "wb");
 
@@ -97,8 +137,7 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-    // Aqui deve entrar a função que descompacta o arquivo.
-    // Ela irá receber árvore de compactação, buffer, tam_arquivo, buffer_descompactado e tam_buffer_descompactado
+    //tam_buffer_descompactado = EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
 
     bytes_escritos = fwrite(buffer_descompactado, 1, tam_buffer_descompactado, arquivo_saida);
 
@@ -108,11 +147,11 @@ int main(int argc, const char **argv){
 
     fclose(arquivo_saida);
     free(buffer);
-    free(buffer_descompactado);*/
+    free(buffer_descompactado);
 
     free(textoDescompac);
 
     DesalocaArvore(arv);
 
-    return 0;
+    return 0;*/
 }
