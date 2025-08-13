@@ -186,7 +186,7 @@ int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char *buf
 
         repetido = 0;
 
-        printf("Buffer sendo preenchido: %s\n", buffer_compactado);
+        //printf("Buffer sendo preenchido: %s\n", buffer_compactado);
     }
 
     free(codigoHuffman);

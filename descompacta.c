@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "descompactador.h"
+#include "compactador.h"
 
 #define string "0001o1m01b1 001a01u1l001z1e01s1r"
 #define texto "010 000 001 011 1101 1110 1110 1101 011 010 000 001 010 000 001 011 100 1111 100 1111 100 011 100 1100 1010 1011"
@@ -82,30 +83,30 @@ int main(int argc, const char **argv){
 
     // Lê os dados do arquivo e armazena no buffer
     unsigned char codigo[tam_binario * TAM_MAX_BITS];
+    unsigned char textoCod[25];
+
+    EscreveTextoCodificado("bom esse bombom arara azul", arv, textoCod); //teste
 
     while (1){
         if (!fread(&caracter_binario, 1, 1, arquivo_entrada)) break;
 
-        printf("%c", caracter_binario);
+        printf("\nbyte:%c -> bits: ", caracter_binario);
 
         for (int i = 0; i < TAM_MAX_BITS; i++){
-            //byte[7 - i] = (caracter_binario >> i) & 1;
 
             buffer[lidos] = (unsigned char)((caracter_binario >> (7 - i)) & 1);
+            printf("%u ", buffer[lidos]);
             lidos++;
         }
     }
     
-    for (int i = 0; i < tam_binario; i++) {
-        printf("%u", buffer[i]);
-    }
     printf("\n");
-    //buffer[tam_binario] = '\0';
-    //printf("Buffer: %s\n", buffer);
+    buffer[lidos + 2] = '\0';
+    printf("Buffer: %s\n", buffer);
 
-    //printf("%ld, %s\n", bytes_lidos, buffer);
+    printf("%d, %s\n", lidos, buffer);
 
-    if (bytes_lidos != tam_binario){
+    if (lidos/8 != tam_binario){
         printf("Erro ao ler o arquivo\n");
         free(buffer);
         fclose(arquivo_entrada);
@@ -114,7 +115,7 @@ int main(int argc, const char **argv){
     
     fclose(arquivo_entrada);
 
-    /*FILE *arquivo_saida;
+    FILE *arquivo_saida;
     char nome_arquivo_descompactado[100];
     unsigned char *buffer_descompactado;
     size_t bytes_escritos;
@@ -137,7 +138,9 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-    //tam_buffer_descompactado = EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
+    buffer_descompactado = (unsigned char *) calloc(50, sizeof(unsigned char));
+
+    tam_buffer_descompactado = EscreveTextoDecodificado(&buffer_descompactado, arv, buffer);
 
     bytes_escritos = fwrite(buffer_descompactado, 1, tam_buffer_descompactado, arquivo_saida);
 
@@ -153,5 +156,5 @@ int main(int argc, const char **argv){
 
     DesalocaArvore(arv);
 
-    return 0;*/
+    return 0;
 }

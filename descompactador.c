@@ -31,7 +31,7 @@ tArvore *DecodificaArvore(unsigned char *arvore, int *tam){
 
 int EscreveTextoDecodificado(unsigned char **buffer_descompactado, tArvore *arv, unsigned char *text){
     unsigned char *texto;
-
+    
     *buffer_descompactado = ProcuraBinario(text, arv);
 
     return strlen(*buffer_descompactado);
