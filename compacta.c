@@ -7,7 +7,7 @@
 
 #define TAM_MAX_BITS 8
 
-int main(int argc, const char **argv){
+/*int main(int argc, const char **argv){
     if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
         return 1;
@@ -81,13 +81,12 @@ int main(int argc, const char **argv){
     arv_bin_compactada = (unsigned char*) calloc(RetornaFrequencia(arvoreHuffman), sizeof(unsigned char*));
     arv_bin_compactada[0] = '\0';
 
-    tam_buffer_compactado = EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
-    printf("Tam buffer compactado: %ld\n", tam_buffer_compactado);
+    EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
 
-    buffer_compactado = (unsigned char *) calloc(tam_buffer_compactado + 1, sizeof(unsigned char));
-    buffer_compactado[tam_buffer_compactado] = '\0';
+    //buffer_compactado = (unsigned char *) calloc(tam_buffer_compactado + 1, sizeof(unsigned char));
+    //buffer_compactado[tam_buffer_compactado] = '\0';
 
-    EscreveTextoCodificado(buffer, arvoreHuffman, buffer_compactado);
+    tam_buffer_compactado = EscreveTextoCodificado(buffer, arvoreHuffman, &buffer_compactado);
     printf("Buffer compactado: %s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
 
     ImprimeArvore(arvoreHuffman);
@@ -101,9 +100,9 @@ int main(int argc, const char **argv){
         bitmapAppendLeastSignificantBit(bm, buffer_compactado[i]);
     }
 
-    /*for (int i=0; i<bitmapGetLength(bm); i++) {
+    for (int i=0; i<bitmapGetLength(bm); i++) {
 		printf("bit #%d = %0xh\n", i, bitmapGetBit(bm, i));
-	}*/
+	}
 
     fwrite(arv_bin_compactada, 1, strlen(arv_bin_compactada), arquivo_saida);
     fprintf(arquivo_saida, "/"); // Imprime uma barra no arquivo como indicador que a árvore terminou
@@ -114,7 +113,7 @@ int main(int argc, const char **argv){
         printf("Erro ao escrever no arquivo de saída\n");
     }*/
 
-    fclose(arquivo_saida);
+    /*fclose(arquivo_saida);
     bitmapLibera(bm);
     DesalocaArvore(arvoreHuffman);
     free(arv_bin_compactada);
@@ -122,4 +121,4 @@ int main(int argc, const char **argv){
     free(buffer_compactado);
 
     return 0;
-}
+}*/

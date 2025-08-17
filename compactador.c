@@ -152,14 +152,13 @@ tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt){
     return arv;
 }
 
-int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char *buffer_compactado){
+int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char **buffer_compactado){
     int tam, tamCodigo = 0, repetido;
-    unsigned char *codigoHuffman, *codigoHuffman2;
+    unsigned char *codigoHuffman;
 
     tam = strlen(text);
 
     codigoHuffman = (unsigned char *) calloc((tam + 1), sizeof(unsigned char));
-    codigoHuffman2 = (unsigned char *) calloc((tam + 1), sizeof(unsigned char));
 
     for(int i = 0; i < tam; i++){
         EncontraCaracter(arv, text[i], codigoHuffman, 0);
@@ -169,34 +168,18 @@ int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char *buf
         printf(" ");
     }
     printf("\n");
+    printf("tam codigo huffman: %d\n", tamCodigo);
+
+    *buffer_compactado = (unsigned char *) calloc (tamCodigo + 1, sizeof(unsigned char));
+    (*buffer_compactado)[tamCodigo] = '\0';
     
     for(int i = 0; i < tam; i++){
         EncontraCaracter(arv, text[i], codigoHuffman, 0);
-        
-        if (i == 0){
-            strcat(buffer_compactado, codigoHuffman);
-        }
-
-        else {
-            for (int j = 0; j < i; j++){
-                EncontraCaracter(arv, text[j], codigoHuffman2, 0);
-
-                if (strcmp(codigoHuffman, codigoHuffman2) == 0){
-                    repetido = 1;
-                    break;
-                }
-            }
-            
-            if (repetido == 0) strcat(buffer_compactado, codigoHuffman);
-        }
-
-        repetido = 0;
-
-        //printf("Buffer sendo preenchido: %s\n", buffer_compactado);
+                
+        strcat(*buffer_compactado, codigoHuffman);
     }
 
     free(codigoHuffman);
-    free(codigoHuffman2);
 
     return tamCodigo;
 }
