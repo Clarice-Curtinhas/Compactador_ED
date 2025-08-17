@@ -9,7 +9,7 @@
 #define MAX_TAM_ARVORE 500
 #define TAM_MAX_BITS 8
 
-int main(int argc, const char **argv){
+/*int main(int argc, const char **argv){
     unsigned char c1[35] = "0001o1m01b1 001a01u1l001z1e01s1r", text[118] = texto;
     unsigned char *textoDescompac, arvore_arq[MAX_TAM_ARVORE];
     int tam_arvore = 0;
@@ -33,7 +33,7 @@ int main(int argc, const char **argv){
     
     //minha parte começa aqui
     
-    if (argc < 2){
+    /*if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
         return 1;
     }
@@ -65,7 +65,7 @@ int main(int argc, const char **argv){
 
     // Cria a árvore
     tam_arvore = 0;
-    arv = DecodificaArvore(arvore_arq, &tam_arvore);
+    /*arv = DecodificaArvore(arvore_arq, &tam_arvore);
 
     // Calcula o tamanho da parte binária do arquivo
     fseek(arquivo_entrada, 0, SEEK_END);
@@ -157,4 +157,4 @@ int main(int argc, const char **argv){
     DesalocaArvore(arv);
 
     return 0;
-}
+}*/

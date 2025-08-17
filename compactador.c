@@ -9,54 +9,60 @@
 
 #include "compactador.h"
 
+#define ASCII 256
 #define CARACTER 1
 #define NUMERO 2
 
 
 tArvore *Codifica(unsigned char *text){
-    tArvore *arvores[256], *arv_completa;
-    int tam, qnt = 0, existe;
+    tArvore *arvores[ASCII], *arv_completa, *vetor_arv[ASCII];
+    int tam, qnt = 0, existe, h;
+
+    printf("%s", text);
+
+    for(int i = 0; i < ASCII; i++){
+        arvores[i] = NULL;
+    }
 
     tam = strlen(text);
 
+    //coloca os caracteres dentro de um vetor de arvores de acordo com o ASCII para
+    //não ter fazer diversas buscas lineares (otimizando o código)
+
     for(int i = 0; i < tam; i++){
-        if(qnt == 0){
-            arvores[0] = CriaFolhas(text[0]);
-            qnt++;
+        h = text[i];
+
+        if(arvores[h] == NULL){
+            arvores[h] = CriaFolhas(text[i]);
         }
 
         else{
-            existe = 0;
-
-            for(int j = 0; j < qnt; j++){
-
-                if(text[i] == RetornaCaracter(arvores[j])){
-                    AcrescimoDeCaracter(arvores[j]);
-
-                    existe = 1;
-                    break;
-                }
-            }
-
-            if(existe == 0){
-                arvores[qnt] = CriaFolhas(text[i]);
-                qnt++;
-            }
-
+            AcrescimoDeCaracter(arvores[h]);
         }
     }
 
-    OrdenaLista(arvores, qnt);
+    //cria outro vetor que não terá mais indices NULLs para facilitar quicksort
+
+    for(int i = 0; i < ASCII; i++){
+        if(arvores[i] != NULL){
+            vetor_arv[qnt] = arvores[i];
+            qnt++;
+        }
+    }
+
+    printf("%s", text);
+
+    OrdenaLista(vetor_arv, qnt);
 
     int total = 0;
 
     for(int i = 0; i < qnt; i++){
-        total += RetornaFrequencia(arvores[i]);
+        total += RetornaFrequencia(vetor_arv[i]);
     }
 
     printf("%d\n", total);
 
-    arv_completa = CriaHuffman(arvores, qnt);
+    arv_completa = CriaHuffman(vetor_arv, qnt);
 
     return arv_completa;
 }
