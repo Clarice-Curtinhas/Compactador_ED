@@ -9,12 +9,11 @@
 
 #include "compactador.h"
 
-#define ASCII 256
 #define CARACTER 1
 #define NUMERO 2
 
 
-tArvore *Codifica(unsigned char *text){
+tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][10]){
     tArvore *arvores[ASCII], *arv_completa, *vetor_arv[ASCII];
     int tam, qnt = 0, existe, h;
 
@@ -63,6 +62,13 @@ tArvore *Codifica(unsigned char *text){
     //printf("%d\n", total);
 
     arv_completa = CriaHuffman(vetor_arv, qnt);
+
+    for(int i = 0; i < ASCII; i++){
+        if(arvores[i] != NULL){
+            EncontraCaracter(arv_completa, RetornaCaracter(arvores[i]), matriz_codigo[i], 1);
+            qnt++;
+        }
+    }
 
     return arv_completa;
 }
@@ -152,34 +158,25 @@ tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt){
     return arv;
 }
 
-int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char **buffer_compactado){
-    int tam, tamCodigo = 0, repetido;
-    unsigned char *codigoHuffman;
+int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][10], unsigned char **buffer_compactado, int tam_texto){
+    int tam_codigo = 0, index;
 
-    tam = strlen(text);
+    *buffer_compactado = (unsigned char *) calloc(tam_texto * 8, sizeof(unsigned char));
 
-    codigoHuffman = (unsigned char *) calloc((tam + 1), sizeof(unsigned char));
+    for(int i = 0; i < tam_texto; i++){
+        index = text[i];
+        printf("\n\nCod. ASCII: %d\n", index); //teste
+        printf("Cod. Huffman: "); //teste
 
-    for(int i = 0; i < tam; i++){
-        EncontraCaracter(arv, text[i], codigoHuffman, 0);
-        tamCodigo += strlen(codigoHuffman);
-
-        /*printf("%s", codigoHuffman);
-        printf(" ");*/
-    }
-    /*printf("\n");
-    printf("tam codigo huffman: %d\n", tamCodigo);*/
-
-    *buffer_compactado = (unsigned char *) calloc (tamCodigo + 1, sizeof(unsigned char));
-    (*buffer_compactado)[tamCodigo] = '\0';
-    
-    for(int i = 0; i < tam; i++){
-        EncontraCaracter(arv, text[i], codigoHuffman, 0);
-                
-        strcat(*buffer_compactado, codigoHuffman);
+        for (int j = 1; j < 9; j++){
+            (*buffer_compactado)[tam_codigo] = matriz[index][j];
+            printf("%u ", (*buffer_compactado)[tam_codigo]); //teste
+            tam_codigo++;
+        }
     }
 
-    free(codigoHuffman);
+    tam_codigo++;
+    (*buffer_compactado)[tam_codigo] = '\0';
 
-    return tamCodigo;
+    return tam_codigo;
 }

@@ -6,19 +6,21 @@
 #ifndef COMPACTADOR_H
 #define COMPACTADOR_H
 
+#define ASCII 256
+
 #include "arvore.h"
 //#include "lista.h"
 #include "bitmap/bitmap.h"
 
 /*
  * Lê um texto e codifica uma arvore de Huffman
- * Inputs: uma string com o texto que será codificado
+ * Inputs: uma string com o texto que será codificado, matriz para inserir o código de cada caracter
  * Outputs: um tipo "tArvore" com a codificação das letras usadas
  * Pre-condicao: string diferente de NULL
  * Pos-condicao: tipo "tArvore" diferente de NULL
 */
 //tArvore *Codifica(unsigned char *text, long tam);
-tArvore *Codifica(unsigned char *text);
+tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][10]);
 
 /*
  * Codifica uma arvore de Huffman
@@ -58,11 +60,11 @@ tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt);
 
 /*
  * Escreve um texto com o código criado
- * Inputs: uma string com o texto que será escrito usando o código existente no "tArvore" e um ponteiro para o buffer em que o código será armazenado
+ * Inputs: texto que será codificado, matirz de códigos, buffer em que o código será armazenado, tamanho do texto
  * Outputs: nenhum
  * Pre-condicao: string diferente de NULL e um "tArvore" diferente de NULL
  * Pos-condicao: nenhuma
 */
-int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char **buffer_compactado);
+int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][10], unsigned char **buffer_compactado, int tam_texto);
 
 #endif

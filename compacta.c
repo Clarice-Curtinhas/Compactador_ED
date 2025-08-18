@@ -17,6 +17,7 @@ int main(int argc, const char **argv){
     char nome_arquivo[100];
     long tam_arquivo;
     unsigned char *buffer;
+    unsigned char matriz_codigo[ASCII][10];
     size_t bytes_lidos;
 
     strcpy(nome_arquivo, argv[1]);
@@ -76,18 +77,20 @@ int main(int argc, const char **argv){
     }
 
    // tArvore *arvoreHuffman = Codifica(buffer, tam_arquivo);
-    tArvore *arvoreHuffman = Codifica(buffer);
+    tArvore *arvoreHuffman = Codifica(buffer, matriz_codigo);
 
     arv_bin_compactada = (unsigned char*) calloc(RetornaFrequencia(arvoreHuffman), sizeof(unsigned char*));
     arv_bin_compactada[0] = '\0';
 
     EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
 
-    //buffer_compactado = (unsigned char *) calloc(tam_buffer_compactado + 1, sizeof(unsigned char));
-    //buffer_compactado[tam_buffer_compactado] = '\0';
+    tam_buffer_compactado = EscreveTextoCodificado(buffer, matriz_codigo, &buffer_compactado, tam_arquivo);
+    printf("Buffer compactado: %s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
 
-    tam_buffer_compactado = EscreveTextoCodificado(buffer, arvoreHuffman, &buffer_compactado);
-    //printf("Buffer compactado: %s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
+    for (int i = 1; i < 9; i++){
+        printf("%u ", matriz_codigo[98][i]);
+    }
+    printf("\n");
 
     //ImprimeArvore(arvoreHuffman);
     arv_bin_compactada = ArvoreCompactada(arvoreHuffman, arv_bin_compactada, &tam_inic);
