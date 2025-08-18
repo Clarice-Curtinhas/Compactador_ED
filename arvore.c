@@ -59,7 +59,7 @@ void AcrescimoDeCaracter(tArvore *arv){
     if(arv != NULL) arv->freq++;
 }
 
-void EscreveCodigosFolha(tArvore *arv, int lado){
+/*void EscreveCodigosFolha(tArvore *arv, int lado){
     if(arv->esq == NULL && arv->dir == NULL){
         if(lado == 1){
             InsereLista('1', arv->codigo);
@@ -74,7 +74,7 @@ void EscreveCodigosFolha(tArvore *arv, int lado){
         EscreveCodigosFolha(arv->esq, lado);
         EscreveCodigosFolha(arv->dir, lado);
     }
-}
+}*/
 
 int RetornaFrequencia(tArvore *arv){
     if(arv != NULL) return arv->freq;

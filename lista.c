@@ -5,7 +5,7 @@
 #include "lista.h"
 
 typedef struct Celula{
-    unsigned char *codigo;
+    unsigned char codigo;
     tCelula *prox;
 } tCelula;
 
@@ -25,7 +25,7 @@ tLista* CriaLista(){
     return lista;
 }
 
-void InsereLista(unsigned char *codigo, tLista *l){
+void InsereLista(unsigned char codigo, tLista *l){
     //celula nova que vai ser colocada na lista
     tCelula *cel;
 
