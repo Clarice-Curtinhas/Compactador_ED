@@ -6,9 +6,8 @@
 
 #define MAX_TAM_ARVORE 500
 #define TAM_MAX_BITS 8
-/*
+
 int main(int argc, const char **argv){
-    unsigned char c1[35] = "0001o1m01b1 001a01u1l001z1e01s1r", text[118] = texto;
     unsigned char *textoDescompac, arvore_arq[MAX_TAM_ARVORE];
     int tam_arvore = 0;
     tArvore *arv;
@@ -67,8 +66,9 @@ int main(int argc, const char **argv){
     unsigned char codigo[tam_binario * TAM_MAX_BITS];
     unsigned char *textoCod;
 
-    EscreveTextoCodificado("bom esse bombom arara azul", arv, &textoCod); //teste
+    //EscreveTextoCodificado("bom esse bombom arara azul", arv, &textoCod, tam_binario); //teste
     EscreveCodigoHuffman(arv, "bom esse bombom arara azul", 26);
+
 
     while (1){
         if (!fread(&caracter_binario, 1, 1, arquivo_entrada)) break;
@@ -82,8 +82,8 @@ int main(int argc, const char **argv){
             lidos++;
         }
     }
+
     
-    printf("\n");
     buffer[lidos] = '\0';
     printf("Buffer: %s\n", buffer);
 
@@ -121,7 +121,7 @@ int main(int argc, const char **argv){
 
     //buffer_descompactado = (unsigned char *) calloc(100, sizeof(unsigned char));
 
-    tam_buffer_descompactado = EscreveTextoDecodificado(&buffer_descompactado, arv, buffer);
+    tam_buffer_descompactado = EscreveTextoDecodificado(&buffer_descompactado, arv, buffer, tam_arquivo*3);
     printf("buffer descomp.: %s, tam: %ld\n", buffer_descompactado, tam_buffer_descompactado);
 
     bytes_escritos = fwrite(buffer_descompactado, 1, tam_buffer_descompactado, arquivo_saida);
@@ -140,4 +140,4 @@ int main(int argc, const char **argv){
     DesalocaArvore(arv);
 
     return 0;
-}*/
+}

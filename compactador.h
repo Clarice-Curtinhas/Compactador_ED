@@ -20,7 +20,7 @@
  * Pos-condicao: tipo "tArvore" diferente de NULL
 */
 //tArvore *Codifica(unsigned char *text, long tam);
-tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][10]);
+tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][10], int tam);
 
 /*
  * Codifica uma arvore de Huffman

@@ -29,10 +29,10 @@ tArvore *DecodificaArvore(unsigned char *arvore, int *tam){
     return arv;
 }
 
-int EscreveTextoDecodificado(unsigned char **buffer_descompactado, tArvore *arv, unsigned char *text){
+int EscreveTextoDecodificado(unsigned char **buffer_descompactado, tArvore *arv, unsigned char *text, int tam){
     unsigned char *texto;
     
-    *buffer_descompactado = ProcuraBinario(text, arv);
+    *buffer_descompactado = ProcuraBinario(text, arv, tam);
 
-    return strlen(*buffer_descompactado);
+    return sizeof(*buffer_descompactado);
 }

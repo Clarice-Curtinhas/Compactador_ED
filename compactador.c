@@ -13,17 +13,15 @@
 #define NUMERO 2
 
 
-tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][10]){
+tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][10], int tam){
     tArvore *arvores[ASCII], *arv_completa, *vetor_arv[ASCII];
-    int tam, qnt = 0, existe, h;
+    int qnt = 0, existe, h;
 
     //printf("%s", text);
 
     for(int i = 0; i < ASCII; i++){
         arvores[i] = NULL;
     }
-
-    tam = strlen(text);
 
     //coloca os caracteres dentro de um vetor de arvores de acordo com o ASCII para
     //não ter fazer diversas buscas lineares (otimizando o código)
@@ -66,6 +64,13 @@ tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][10]){
     for(int i = 0; i < ASCII; i++){
         if(arvores[i] != NULL){
             EncontraCaracter(arv_completa, RetornaCaracter(arvores[i]), matriz_codigo[i], 1);
+
+            printf("codigo: %c\n", i);
+
+            for (int j = 1; matriz_codigo[i][j] != '\0'; j++){
+                printf("%u ", matriz_codigo[i][j]); //teste
+            }
+            printf("\n");
             qnt++;
         }
     }
@@ -165,12 +170,12 @@ int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][10],
 
     for(int i = 0; i < tam_texto; i++){
         index = text[i];
-        printf("\n\nCod. ASCII: %d\n", index); //teste
+        printf("\n\nCod. ASCII: %d\nletra %c\n", index, text[i]); //teste
         printf("Cod. Huffman: "); //teste
 
-        for (int j = 1; j < 9; j++){
+        for (int j = 1; matriz[index][j] != '\0'; j++){
             (*buffer_compactado)[tam_codigo] = matriz[index][j];
-            printf("%u ", (*buffer_compactado)[tam_codigo]); //teste
+            printf("%c ", (*buffer_compactado)[tam_codigo]); //teste
             tam_codigo++;
         }
     }
