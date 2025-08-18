@@ -85,7 +85,7 @@ int main(int argc, const char **argv){
     EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
 
     tam_buffer_compactado = EscreveTextoCodificado(buffer, matriz_codigo, &buffer_compactado, tam_arquivo);
-    printf("Buffer compactado: %s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
+    //printf("Buffer compactado: %s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
 
     //ImprimeArvore(arvoreHuffman);
     arv_bin_compactada = ArvoreCompactada(arvoreHuffman, arv_bin_compactada, &tam_inic);
@@ -103,7 +103,7 @@ int main(int argc, const char **argv){
 	}*/
 
     fwrite(arv_bin_compactada, 1, tam_inic, arquivo_saida);
-    fprintf(arquivo_saida, "/"); // Imprime uma barra no arquivo como indicador que a árvore terminou
+    fprintf(arquivo_saida, "~"); // Imprime esse caracter no arquivo como indicador que a árvore terminou
     bytes_escritos = fwrite(bitmapGetContents(bm), 1, (bitmapGetLength(bm) + 7) / 8, arquivo_saida);
 
     /*if (bytes_escritos != tam_buffer_compactado){

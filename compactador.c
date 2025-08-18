@@ -65,12 +65,12 @@ tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][10], i
         if(arvores[i] != NULL){
             EncontraCaracter(arv_completa, RetornaCaracter(arvores[i]), matriz_codigo[i], 1);
 
-            printf("codigo: %c\n", i);
+            //printf("codigo: %c\n", i);
 
             for (int j = 1; matriz_codigo[i][j] != '\0'; j++){
-                printf("%u ", matriz_codigo[i][j]); //teste
+                //printf("%u ", matriz_codigo[i][j]); //teste
             }
-            printf("\n");
+            //printf("\n");
             qnt++;
         }
     }
@@ -170,12 +170,12 @@ int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][10],
 
     for(int i = 0; i < tam_texto; i++){
         index = text[i];
-        printf("\n\nCod. ASCII: %d\nletra %c\n", index, text[i]); //teste
-        printf("Cod. Huffman: "); //teste
+        //printf("\n\nCod. ASCII: %d\nletra %c\n", index, text[i]); //teste
+        //printf("Cod. Huffman: "); //teste
 
         for (int j = 1; matriz[index][j] != '\0'; j++){
             (*buffer_compactado)[tam_codigo] = matriz[index][j];
-            printf("%c ", (*buffer_compactado)[tam_codigo]); //teste
+            //printf("%c ", (*buffer_compactado)[tam_codigo]); //teste
             tam_codigo++;
         }
     }

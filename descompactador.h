@@ -12,7 +12,7 @@
  * Pre-condicao: string diferente de NULL
  * Pos-condicao: tipo "tArvore" diferente de NULL
 */
-tArvore *DecodificaArvore(unsigned char *arvore, int *tam);
+tArvore *DecodificaArvore(unsigned char *arvore, int *tam, int tam_max);
 
 /*
  * Escreve um texto com o código existente na arvore dentro do arquivo
