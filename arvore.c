@@ -8,6 +8,7 @@
 #include <string.h>
 
 #include "arvore.h"
+#include "lista.h"
 
 #define CARACTER 1
 #define NUMERO 2
@@ -17,6 +18,7 @@
 typedef struct Arvore{
     unsigned char carac;
     int freq;
+    tLista *codigo;
     tArvore *esq;
     tArvore *dir;
 } tArvore;
@@ -28,6 +30,7 @@ tArvore *CriaFolhas(unsigned char caracter){
 
     arv->carac = caracter;
     arv->freq = 1;
+    //arv->codigo = CriaLista();
 
     arv->esq = NULL;
     arv->dir = NULL;
@@ -41,15 +44,36 @@ tArvore *CriaGalhos(tArvore *esq, tArvore *dir){
     arv = (tArvore*) calloc(1, sizeof(tArvore));
 
     arv->freq = RetornaFrequencia(dir) + RetornaFrequencia(esq);
+    arv->codigo = NULL;
 
     arv->esq = esq;
+    //EscreveCodigosFolha(arv->esq, 0);
+
     arv->dir = dir;
+    //EscreveCodigosFolha(arv->dir, 1);
 
     return arv;
 }
 
 void AcrescimoDeCaracter(tArvore *arv){
     if(arv != NULL) arv->freq++;
+}
+
+void EscreveCodigosFolha(tArvore *arv, int lado){
+    if(arv->esq == NULL && arv->dir == NULL){
+        if(lado == 1){
+            InsereLista('1', arv->codigo);
+        }
+
+        else{
+            InsereLista('0', arv->codigo);
+        }
+    }
+
+    else{
+        EscreveCodigosFolha(arv->esq, lado);
+        EscreveCodigosFolha(arv->dir, lado);
+    }
 }
 
 int RetornaFrequencia(tArvore *arv){
@@ -143,6 +167,7 @@ void DesalocaArvore(tArvore *arv){
         DesalocaArvore(arv->esq);
         DesalocaArvore(arv->dir);
 
+        DesalocaLista(arv->codigo);
         free(arv);
     }
 }
@@ -151,7 +176,7 @@ int EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
     unsigned char caracter[tam], codigoHuffman[TAM_MAX_BITS];
     int qntAnalisados = 0, tamHuffman = 0, jaFoi;
 
-    printf("%d\n", tam);
+    //printf("%d\n", tam);
 
     for(int i = 0; i < tam; i++){
         jaFoi = 0;
@@ -167,15 +192,15 @@ int EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
         }
 
         if(jaFoi == 0){
-            printf("SCII: %d - %c - ", text[i], text[i]);
+            //printf("SCII: %d - %c - ", text[i], text[i]);
 
             if(EncontraCaracter(arv, text[i], codigoHuffman, 0) == 0)
                 printf("Erro! caracter não encontrado");
             
             else{
                 tamHuffman += strlen(codigoHuffman);
-                printf("%s", codigoHuffman);
-                printf(";\n");
+                /*printf("%s", codigoHuffman);
+                printf(";\n");*/
             }
 
             caracter[qntAnalisados] = text[i];
@@ -183,7 +208,7 @@ int EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
         }
     }
 
-    printf("\n");
+    //printf("\n");
 
     return tamHuffman; // Tamnho a ser alocado para o buffer compactado no "compacta.c"
 }

@@ -18,7 +18,7 @@ tArvore *Codifica(unsigned char *text){
     tArvore *arvores[ASCII], *arv_completa, *vetor_arv[ASCII];
     int tam, qnt = 0, existe, h;
 
-    printf("%s", text);
+    //printf("%s", text);
 
     for(int i = 0; i < ASCII; i++){
         arvores[i] = NULL;
@@ -50,7 +50,7 @@ tArvore *Codifica(unsigned char *text){
         }
     }
 
-    printf("%s", text);
+    //printf("%s", text);
 
     OrdenaLista(vetor_arv, qnt);
 
@@ -60,7 +60,7 @@ tArvore *Codifica(unsigned char *text){
         total += RetornaFrequencia(vetor_arv[i]);
     }
 
-    printf("%d\n", total);
+    //printf("%d\n", total);
 
     arv_completa = CriaHuffman(vetor_arv, qnt);
 
@@ -83,11 +83,11 @@ tArvore *CriaHuffman(tArvore **arv, int qnt){
         arv = AdicionaLista(arv, arvore, qnt);
         qnt++;
 
-        for(int i = 0; i < qnt; i++){
+        /*for(int i = 0; i < qnt; i++){
             printf("'%c' ", RetornaCaracter(arv[i]));
             printf("- %d\n", RetornaFrequencia(arv[i]));
         }
-        printf("\n");
+        printf("\n");*/
     }
 
     return arvore;
@@ -164,11 +164,11 @@ int EscreveTextoCodificado(unsigned char *text, tArvore *arv, unsigned char **bu
         EncontraCaracter(arv, text[i], codigoHuffman, 0);
         tamCodigo += strlen(codigoHuffman);
 
-        printf("%s", codigoHuffman);
-        printf(" ");
+        /*printf("%s", codigoHuffman);
+        printf(" ");*/
     }
-    printf("\n");
-    printf("tam codigo huffman: %d\n", tamCodigo);
+    /*printf("\n");
+    printf("tam codigo huffman: %d\n", tamCodigo);*/
 
     *buffer_compactado = (unsigned char *) calloc (tamCodigo + 1, sizeof(unsigned char));
     (*buffer_compactado)[tamCodigo] = '\0';

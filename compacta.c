@@ -7,7 +7,7 @@
 
 #define TAM_MAX_BITS 8
 
-/*int main(int argc, const char **argv){
+int main(int argc, const char **argv){
     if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
         return 1;
@@ -51,9 +51,9 @@
     }
 
     buffer[tam_arquivo] = '\0';
-    printf("Teste buffer: %s\n", buffer);
+    //printf("Teste buffer: %s\n", buffer);
 
-    printf("\n");
+    //printf("\n");
     
     fclose(arquivo_entrada);
 
@@ -87,12 +87,12 @@
     //buffer_compactado[tam_buffer_compactado] = '\0';
 
     tam_buffer_compactado = EscreveTextoCodificado(buffer, arvoreHuffman, &buffer_compactado);
-    printf("Buffer compactado: %s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
+    //printf("Buffer compactado: %s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
 
-    ImprimeArvore(arvoreHuffman);
+    //ImprimeArvore(arvoreHuffman);
     arv_bin_compactada = ArvoreCompactada(arvoreHuffman, arv_bin_compactada, &tam_inic);
 
-    printf("\n\nArvore pronta: '%s'\n\n", arv_bin_compactada);
+    //printf("\n\nArvore pronta: '%s'\n\n", arv_bin_compactada);
 
     bitmap *bm = bitmapInit(tam_buffer_compactado * TAM_MAX_BITS);
 
@@ -100,9 +100,9 @@
         bitmapAppendLeastSignificantBit(bm, buffer_compactado[i]);
     }
 
-    for (int i=0; i<bitmapGetLength(bm); i++) {
+    /*for (int i=0; i<bitmapGetLength(bm); i++) {
 		printf("bit #%d = %0xh\n", i, bitmapGetBit(bm, i));
-	}
+	}*/
 
     fwrite(arv_bin_compactada, 1, strlen(arv_bin_compactada), arquivo_saida);
     fprintf(arquivo_saida, "/"); // Imprime uma barra no arquivo como indicador que a árvore terminou
@@ -113,7 +113,7 @@
         printf("Erro ao escrever no arquivo de saída\n");
     }*/
 
-    /*fclose(arquivo_saida);
+    fclose(arquivo_saida);
     bitmapLibera(bm);
     DesalocaArvore(arvoreHuffman);
     free(arv_bin_compactada);
@@ -121,4 +121,4 @@
     free(buffer_compactado);
 
     return 0;
-}*/
+}

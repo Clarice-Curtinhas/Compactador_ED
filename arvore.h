@@ -36,6 +36,15 @@ tArvore *CriaGalhos(tArvore *esq, tArvore *dir);
 void AcrescimoDeCaracter(tArvore *arv);
 
 /*
+ * Escreve o código dos caracteres em cada folha
+ * Inputs: Um tipo "tArvore" e um int com o lado em que ele está da árvore
+ * Outputs: nenhum
+ * Pre-condicao: nenhuma 
+ * Pos-condicao: nenhuma
+*/
+void EscreveCodigosFolha(tArvore *arv, int lado);
+
+/*
  * Retorna a frequencia em que o caracter aparece
  * Inputs: Um tipo "tArvore" do carcter coorrespondente
  * Outputs: Um tipo int com a quantidade de vezes que o caracter aparece
@@ -45,7 +54,7 @@ void AcrescimoDeCaracter(tArvore *arv);
 int RetornaFrequencia(tArvore *arv);
 
 /*
- * Retorna a frequencia em que o caracter aparece
+ * Retorna o caracter
  * Inputs: Um tipo "tArvore" do carcter coorrespondente
  * Outputs: Um tipo caracter
  * Pre-condicao: nenhuma 

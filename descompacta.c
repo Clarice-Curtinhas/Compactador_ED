@@ -4,32 +4,14 @@
 #include "descompactador.h"
 #include "compactador.h"
 
-#define string "0001o1m01b1 001a01u1l001z1e01s1r"
-#define texto "010 000 001 011 1101 1110 1110 1101 011 010 000 001 010 000 001 011 100 1111 100 1111 100 011 100 1100 1010 1011"
 #define MAX_TAM_ARVORE 500
 #define TAM_MAX_BITS 8
-
+/*
 int main(int argc, const char **argv){
     unsigned char c1[35] = "0001o1m01b1 001a01u1l001z1e01s1r", text[118] = texto;
     unsigned char *textoDescompac, arvore_arq[MAX_TAM_ARVORE];
     int tam_arvore = 0;
     tArvore *arv;
-
-    /*c1[32] = '\0';
-
-    printf("%s\n", c1);
-
-    arv = DecodificaArvore(c1, &tam);
-
-    if(arv!= NULL){
-        ImprimeArvore(arv);
-    }
-
-    else printf("Não foi\n");
-
-    EscreveTextoDecodificado(&textoDescompac, arv, texto);
-
-    printf("%s\n", textoDescompac);*/
     
     //minha parte começa aqui
     
@@ -158,4 +140,4 @@ int main(int argc, const char **argv){
     DesalocaArvore(arv);
 
     return 0;
-}
+}*/
