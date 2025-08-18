@@ -6,7 +6,7 @@
 #include "bitmap/bitmap.h"
 
 #define TAM_MAX_BITS 8
-/*
+
 int main(int argc, const char **argv){
     if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
@@ -102,16 +102,15 @@ int main(int argc, const char **argv){
 		printf("bit #%d = %0xh\n", i, bitmapGetBit(bm, i));
 	}*/
 
-    /*fwrite(arv_bin_compactada, 1, tam_inic, arquivo_saida);
+    fwrite(arv_bin_compactada, 1, tam_inic, arquivo_saida);
     fprintf(arquivo_saida, "/"); // Imprime uma barra no arquivo como indicador que a árvore terminou
     bytes_escritos = fwrite(bitmapGetContents(bm), 1, (bitmapGetLength(bm) + 7) / 8, arquivo_saida);
-    //fprintf(arquivo_saida, "/"); 
 
     /*if (bytes_escritos != tam_buffer_compactado){
         printf("Erro ao escrever no arquivo de saída\n");
     }*/
 
-  /* fclose(arquivo_saida);
+    fclose(arquivo_saida);
     bitmapLibera(bm);
     DesalocaArvore(arvoreHuffman);
     free(arv_bin_compactada);
@@ -119,4 +118,4 @@ int main(int argc, const char **argv){
     free(buffer_compactado);
 
     return 0;
-}*/
+}
