@@ -6,7 +6,7 @@
 #include "bitmap/bitmap.h"
 
 #define TAM_MAX_BITS 8
-
+/*
 int main(int argc, const char **argv){
     if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
@@ -80,7 +80,6 @@ int main(int argc, const char **argv){
     tArvore *arvoreHuffman = Codifica(buffer, matriz_codigo, tam_arquivo);
 
     arv_bin_compactada = (unsigned char*) calloc(RetornaFrequencia(arvoreHuffman), sizeof(unsigned char*));
-    arv_bin_compactada[0] = '\0';
 
     EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
 
@@ -98,17 +97,17 @@ int main(int argc, const char **argv){
         bitmapAppendLeastSignificantBit(bm, buffer_compactado[i]);
     }
 
-    /*for (int i=0; i<bitmapGetLength(bm); i++) {
-		printf("bit #%d = %0xh\n", i, bitmapGetBit(bm, i));
-	}*/
+    //for (int i=0; i<bitmapGetLength(bm); i++) {
+	//	printf("bit #%d = %0xh\n", i, bitmapGetBit(bm, i));
+	//}
 
     fwrite(arv_bin_compactada, 1, tam_inic, arquivo_saida);
     fprintf(arquivo_saida, "~"); // Imprime esse caracter no arquivo como indicador que a árvore terminou
     bytes_escritos = fwrite(bitmapGetContents(bm), 1, (bitmapGetLength(bm) + 7) / 8, arquivo_saida);
 
-    /*if (bytes_escritos != tam_buffer_compactado){
-        printf("Erro ao escrever no arquivo de saída\n");
-    }*/
+    //if (bytes_escritos != tam_buffer_compactado){
+      //  printf("Erro ao escrever no arquivo de saída\n");
+    //}
 
     fclose(arquivo_saida);
     bitmapLibera(bm);
@@ -118,4 +117,4 @@ int main(int argc, const char **argv){
     free(buffer_compactado);
 
     return 0;
-}
+}*/

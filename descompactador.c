@@ -5,7 +5,7 @@
 #include "descompactador.h"
 
 tArvore *DecodificaArvore(unsigned char *arvore, int *tam, int tam_max){
-    tArvore *arv;
+    tArvore *arv = NULL;
 
     if (*tam >= tam_max) {
         fprintf(stderr, "Erro: acesso fora do vetor da árvore em *tam=%d (limite=%d)\n", *tam, tam_max);
@@ -37,7 +37,6 @@ tArvore *DecodificaArvore(unsigned char *arvore, int *tam, int tam_max){
         //ImprimeArvore(arv);
         //printf("\n\n");
     }
-
     return arv;
 }
 

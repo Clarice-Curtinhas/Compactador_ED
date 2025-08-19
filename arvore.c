@@ -68,14 +68,11 @@ unsigned char* ArvoreCompactada(tArvore *arv, unsigned char *buffer, int *tam){
     if(arv->carac){
         buffer[*tam] = '1';
         buffer[*tam+1] = arv->carac;
-        buffer[*tam+2] = '\0';
-
         *tam += 2;
     }
 
     else{
         buffer[*tam] = '0';
-        buffer[*tam+1] = '\0';
         *tam += 1;
 
         buffer = ArvoreCompactada(arv->esq, buffer, tam);

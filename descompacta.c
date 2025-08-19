@@ -7,7 +7,7 @@
 #define MAX_TAM_ARVORE 500
 #define TAM_MAX_BITS 8
 
-/*int main(int argc, const char **argv){
+int main(int argc, const char **argv){
     unsigned char *textoDescompac, arvore_arq[MAX_TAM_ARVORE];
     int tam_arvore = 0;
     tArvore *arv;
@@ -27,6 +27,7 @@
     size_t bytes_lidos;
 
     strcpy(nome_arquivo, argv[1]);
+    //strcat(nome_arquivo, ".comp");
     arquivo_entrada = fopen(nome_arquivo, "rb");
 
     if (arquivo_entrada == NULL){
@@ -35,20 +36,35 @@
     }
 
     // Lê a árvore no início do arquivo binário
-    char caracter;
+    unsigned char caracter;
 
-    while(1){
-        fscanf(arquivo_entrada, "%c", &caracter);
+    while(fread(&caracter, sizeof(unsigned char), 1, arquivo_entrada)) {
 
-        if (caracter == '~') break;
+        if (caracter == '~'){
+            break;
+        }
+
+        if (tam_arvore >= MAX_TAM_ARVORE) {
+            printf("Erro: a árvore no arquivo excede o tamanho máximo permitido.\n");
+            fclose(arquivo_entrada);
+            return 1;
+        }
 
         arvore_arq[tam_arvore] = caracter;
         tam_arvore++;
     }
 
+    arvore_arq[tam_arvore] = '\0';
+
     // Cria a árvore
     int tam_arvore_aux = 0;
+
     arv = DecodificaArvore(arvore_arq, &tam_arvore_aux, tam_arvore);
+
+    if(arv == NULL){
+        printf("Erro: árvore igual a NULL");
+        return 1;
+    }
 
     // Calcula o tamanho da parte binária do arquivo
     fseek(arquivo_entrada, 0, SEEK_END);
@@ -69,7 +85,7 @@
     unsigned char *textoCod;
 
     //EscreveTextoCodificado("bom esse bombom arara azul", arv, &textoCod, tam_binario); //teste
-    EscreveCodigoHuffman(arv, "bom esse bombom arara azul", 26);
+    //EscreveCodigoHuffman(arv, "bom esse bombom arara azul", 26);
 
 
     while (1){
@@ -86,7 +102,7 @@
     }
 
     
-    buffer[lidos] = '\0';
+    //buffer[lidos] = '\0';
     //printf("Buffer: %s, tam buffer: %d\n", buffer, lidos);
 
     if (lidos/8 != tam_binario){
@@ -103,6 +119,8 @@
     unsigned char *buffer_descompactado;
     size_t bytes_escritos;
     long tam_buffer_descompactado;
+
+    buffer_descompactado = (unsigned char*) calloc(tam_arquivo*3, sizeof(unsigned char));
 
     int tam_nome_arquivo = strlen(nome_arquivo);
 
@@ -141,4 +159,4 @@
     DesalocaArvore(arv);
 
     return 0;
-}*/
+}
