@@ -12,10 +12,11 @@
 #define CARACTER 1
 #define NUMERO 2
 
-#define TAM_MAX_BITS 100
+#define TAM_MAX_BITS 256
 
 typedef struct Arvore{
     unsigned char carac;
+    int tipo;
     int freq;
     tArvore *esq;
     tArvore *dir;
@@ -30,6 +31,8 @@ tArvore *CriaFolhas(unsigned char caracter){
     arv->freq = 1;
     //arv->codigo = CriaLista();
 
+    arv->tipo = CARACTER;
+
     arv->esq = NULL;
     arv->dir = NULL;
 
@@ -42,6 +45,7 @@ tArvore *CriaGalhos(tArvore *esq, tArvore *dir){
     arv = (tArvore*) calloc(1, sizeof(tArvore));
 
     arv->freq = RetornaFrequencia(dir) + RetornaFrequencia(esq);
+    arv->tipo = NUMERO;
 
     arv->esq = esq;
     //EscreveCodigosFolha(arv->esq, 0);
@@ -65,7 +69,7 @@ unsigned char RetornaCaracter(tArvore *arv){
 }
 
 unsigned char* ArvoreCompactada(tArvore *arv, unsigned char *buffer, int *tam){
-    if(arv->carac){
+    if(arv->tipo == CARACTER){
         buffer[*tam] = '1';
         buffer[*tam+1] = arv->carac;
         *tam += 2;
@@ -113,7 +117,7 @@ unsigned char* ProcuraBinario(unsigned char *vect, tArvore *arv, int tam){
     texto = (unsigned char*) calloc(tam, sizeof(unsigned char));
 
 
-    while (vect[i] != '\0'){
+    for (int i = 0; i < tam; i++){
         aux = arv;
 
         while(aux->esq != NULL || aux->dir != NULL){
@@ -130,7 +134,6 @@ unsigned char* ProcuraBinario(unsigned char *vect, tArvore *arv, int tam){
         }
 
         texto[qnt] = aux->carac;
-        texto[qnt+1] = '\0';
         qnt++;
     }
 
@@ -184,7 +187,7 @@ int EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
 
 int EncontraCaracter(tArvore *arv, unsigned char carac, unsigned char *codigoHuffman, int tamCodigo){
 
-    if(arv->carac){
+    if(arv->tipo = CARACTER){
         if(carac == arv->carac) {
             codigoHuffman[tamCodigo] = '\0';
             return 1;

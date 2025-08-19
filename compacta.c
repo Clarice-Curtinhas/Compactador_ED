@@ -6,7 +6,7 @@
 #include "bitmap/bitmap.h"
 
 #define TAM_MAX_BITS 8
-/*
+
 int main(int argc, const char **argv){
     if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
@@ -17,7 +17,7 @@ int main(int argc, const char **argv){
     char nome_arquivo[100];
     long tam_arquivo;
     unsigned char *buffer;
-    unsigned char matriz_codigo[ASCII][10];
+    unsigned char matriz_codigo[ASCII][ASCII];
     size_t bytes_lidos;
 
     strcpy(nome_arquivo, argv[1]);
@@ -51,10 +51,7 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-    buffer[tam_arquivo] = '\0';
-    //printf("Teste buffer: %s\n", buffer);
-
-    //printf("\n");
+    //buffer[tam_arquivo] = '\0';
     
     fclose(arquivo_entrada);
 
@@ -76,7 +73,6 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-   // tArvore *arvoreHuffman = Codifica(buffer, tam_arquivo);
     tArvore *arvoreHuffman = Codifica(buffer, matriz_codigo, tam_arquivo);
 
     arv_bin_compactada = (unsigned char*) calloc(RetornaFrequencia(arvoreHuffman), sizeof(unsigned char*));
@@ -86,10 +82,7 @@ int main(int argc, const char **argv){
     tam_buffer_compactado = EscreveTextoCodificado(buffer, matriz_codigo, &buffer_compactado, tam_arquivo);
     //printf("Buffer compactado: %s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
 
-    //ImprimeArvore(arvoreHuffman);
     arv_bin_compactada = ArvoreCompactada(arvoreHuffman, arv_bin_compactada, &tam_inic);
-
-    //printf("\n\nArvore pronta: '%s'\n\n", arv_bin_compactada);
 
     bitmap *bm = bitmapInit(tam_buffer_compactado * TAM_MAX_BITS);
 
@@ -97,17 +90,10 @@ int main(int argc, const char **argv){
         bitmapAppendLeastSignificantBit(bm, buffer_compactado[i]);
     }
 
-    //for (int i=0; i<bitmapGetLength(bm); i++) {
-	//	printf("bit #%d = %0xh\n", i, bitmapGetBit(bm, i));
-	//}
-
     fwrite(arv_bin_compactada, 1, tam_inic, arquivo_saida);
     fprintf(arquivo_saida, "~"); // Imprime esse caracter no arquivo como indicador que a árvore terminou
     bytes_escritos = fwrite(bitmapGetContents(bm), 1, (bitmapGetLength(bm) + 7) / 8, arquivo_saida);
 
-    //if (bytes_escritos != tam_buffer_compactado){
-      //  printf("Erro ao escrever no arquivo de saída\n");
-    //}
 
     fclose(arquivo_saida);
     bitmapLibera(bm);
@@ -117,4 +103,4 @@ int main(int argc, const char **argv){
     free(buffer_compactado);
 
     return 0;
-}*/
+}

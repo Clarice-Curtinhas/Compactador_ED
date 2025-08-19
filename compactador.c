@@ -13,7 +13,7 @@
 #define NUMERO 2
 
 
-tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][10], int tam){
+tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][ASCII], int tam){
     tArvore *arvores[ASCII], *arv_completa, *vetor_arv[ASCII];
     int qnt = 0, existe, h;
 
@@ -65,12 +65,12 @@ tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][10], i
         if(arvores[i] != NULL){
             EncontraCaracter(arv_completa, RetornaCaracter(arvores[i]), matriz_codigo[i], 1);
 
-            //printf("codigo: %c\n", i);
+            /*//printf("codigo: %c\n", i);
 
             for (int j = 1; matriz_codigo[i][j] != '\0'; j++){
                 //printf("%u ", matriz_codigo[i][j]); //teste
             }
-            //printf("\n");
+            //printf("\n");*/
             qnt++;
         }
     }
@@ -163,7 +163,7 @@ tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt){
     return arv;
 }
 
-int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][10], unsigned char **buffer_compactado, int tam_texto){
+int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][ASCII], unsigned char **buffer_compactado, int tam_texto){
     int tam_codigo = 0, index;
 
     *buffer_compactado = (unsigned char *) calloc(tam_texto * 8, sizeof(unsigned char));
@@ -181,7 +181,7 @@ int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][10],
     }
 
     tam_codigo++;
-    (*buffer_compactado)[tam_codigo] = '\0';
+    //(*buffer_compactado)[tam_codigo] = '\0';
 
     return tam_codigo;
 }

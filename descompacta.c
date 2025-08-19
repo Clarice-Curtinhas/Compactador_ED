@@ -6,7 +6,7 @@
 
 #define MAX_TAM_ARVORE 500
 #define TAM_MAX_BITS 8
-
+/*
 int main(int argc, const char **argv){
     unsigned char *textoDescompac, arvore_arq[MAX_TAM_ARVORE];
     int tam_arvore = 0;
@@ -84,9 +84,6 @@ int main(int argc, const char **argv){
     unsigned char codigo[tam_binario * TAM_MAX_BITS];
     unsigned char *textoCod;
 
-    //EscreveTextoCodificado("bom esse bombom arara azul", arv, &textoCod, tam_binario); //teste
-    //EscreveCodigoHuffman(arv, "bom esse bombom arara azul", 26);
-
 
     while (1){
         if (!fread(&caracter_binario, 1, 1, arquivo_entrada)) break;
@@ -159,4 +156,4 @@ int main(int argc, const char **argv){
     DesalocaArvore(arv);
 
     return 0;
-}
+}*/

@@ -20,7 +20,7 @@
  * Pos-condicao: tipo "tArvore" diferente de NULL
 */
 //tArvore *Codifica(unsigned char *text, long tam);
-tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][10], int tam);
+tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][ASCII], int tam);
 
 /*
  * Codifica uma arvore de Huffman
@@ -65,6 +65,6 @@ tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt);
  * Pre-condicao: string diferente de NULL e um "tArvore" diferente de NULL
  * Pos-condicao: nenhuma
 */
-int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][10], unsigned char **buffer_compactado, int tam_texto);
+int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][ASCII], unsigned char **buffer_compactado, int tam_texto);
 
 #endif
