@@ -4,15 +4,14 @@
 #include "descompactador.h"
 #include "compactador.h"
 
-#define MAX_TAM_ARVORE 500
+#define MAX_TAM_ARVORE 1000
 #define TAM_MAX_BITS 8
-/*
+
 int main(int argc, const char **argv){
     unsigned char *textoDescompac, arvore_arq[MAX_TAM_ARVORE];
     int tam_arvore = 0;
     tArvore *arv;
     
-    //minha parte começa aqui
     
     if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
@@ -21,7 +20,8 @@ int main(int argc, const char **argv){
 
     FILE *arquivo_entrada;
     char nome_arquivo[100], caracter_binario;
-    long tam_arquivo, tam_binario;
+    int tam_arv,  total_bits;
+    long tam_arquivo, tam_binario, tam_original;
     unsigned char *buffer;
     int byte[TAM_MAX_BITS], lidos = 0;
     size_t bytes_lidos;
@@ -36,13 +36,18 @@ int main(int argc, const char **argv){
     }
 
     // Lê a árvore no início do arquivo binário
-    unsigned char caracter;
+    unsigned char caracter = 0;
+
+    fread(&tam_arv, sizeof(int), 1, arquivo_entrada);
+    fread(&tam_original, sizeof(long), 1, arquivo_entrada);
+
+    if (fread(&total_bits, sizeof(int), 1, arquivo_entrada) != 1) {
+        printf("Erro ao ler a quantidade de bits do final do arquivo.\n");
+        fclose(arquivo_entrada);
+        return 1;
+    }
 
     while(fread(&caracter, sizeof(unsigned char), 1, arquivo_entrada)) {
-
-        if (caracter == '~'){
-            break;
-        }
 
         if (tam_arvore >= MAX_TAM_ARVORE) {
             printf("Erro: a árvore no arquivo excede o tamanho máximo permitido.\n");
@@ -52,9 +57,11 @@ int main(int argc, const char **argv){
 
         arvore_arq[tam_arvore] = caracter;
         tam_arvore++;
-    }
 
-    arvore_arq[tam_arvore] = '\0';
+        if(tam_arvore == tam_arv){
+            break;
+        }
+    }
 
     // Cria a árvore
     int tam_arvore_aux = 0;
@@ -66,14 +73,8 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-    // Calcula o tamanho da parte binária do arquivo
-    fseek(arquivo_entrada, 0, SEEK_END);
-    tam_arquivo = ftell(arquivo_entrada);
-    fseek(arquivo_entrada, tam_arvore + 1, SEEK_SET);
-    tam_binario = tam_arquivo - (tam_arvore + 1);
-
     // Aloca um buffer para armazenar os dados do arquivo
-    buffer = (unsigned char*) calloc((tam_binario * TAM_MAX_BITS) + 1, sizeof(unsigned char));
+    buffer = (unsigned char*) calloc(total_bits, sizeof(unsigned char));
 
     if (buffer == NULL){
         printf("Erro ao alocar memória\n");
@@ -81,16 +82,14 @@ int main(int argc, const char **argv){
     }
 
     // Lê os dados do arquivo e armazena no buffer
-    unsigned char codigo[tam_binario * TAM_MAX_BITS];
-    unsigned char *textoCod;
 
-
-    while (1){
+    while (lidos < total_bits){
         if (!fread(&caracter_binario, 1, 1, arquivo_entrada)) break;
 
         //printf("\nbyte:%c -> bits: ", caracter_binario);
 
         for (int i = 0; i < TAM_MAX_BITS; i++){
+            if(lidos >= total_bits) break;
 
             buffer[lidos] = ((caracter_binario >> (7 - i)) & 1) + '0';
             //printf("%c ", buffer[lidos]);
@@ -98,11 +97,7 @@ int main(int argc, const char **argv){
         }
     }
 
-    
-    //buffer[lidos] = '\0';
-    //printf("Buffer: %s, tam buffer: %d\n", buffer, lidos);
-
-    if (lidos/8 != tam_binario){
+    if (lidos != total_bits){
         printf("Erro ao ler o arquivo\n");
         free(buffer);
         fclose(arquivo_entrada);
@@ -117,7 +112,7 @@ int main(int argc, const char **argv){
     size_t bytes_escritos;
     long tam_buffer_descompactado;
 
-    buffer_descompactado = (unsigned char*) calloc(tam_arquivo*3, sizeof(unsigned char));
+    buffer_descompactado = (unsigned char*) calloc(tam_original, sizeof(unsigned char));
 
     int tam_nome_arquivo = strlen(nome_arquivo);
 
@@ -136,14 +131,12 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-    //buffer_descompactado = (unsigned char *) calloc(100, sizeof(unsigned char));
-
-    tam_buffer_descompactado = EscreveTextoDecodificado(&buffer_descompactado, arv, buffer, tam_arquivo*5);
+    EscreveTextoDecodificado(&buffer_descompactado, arv, buffer, lidos-1);
     //printf("buffer descomp.: %s, tam: %ld\n", buffer_descompactado, tam_buffer_descompactado);
 
-    bytes_escritos = fwrite(buffer_descompactado, 1, tam_buffer_descompactado, arquivo_saida);
+    bytes_escritos = fwrite(buffer_descompactado, 1, tam_original, arquivo_saida);
 
-    if (bytes_escritos != tam_buffer_descompactado){
+    if (bytes_escritos != tam_original){
         printf("Erro ao escrever no arquivo de saída\n");
     }
 
@@ -151,9 +144,7 @@ int main(int argc, const char **argv){
     free(buffer);
     free(buffer_descompactado);
 
-    //free(textoDescompac);
-
     DesalocaArvore(arv);
 
     return 0;
-}*/
+}

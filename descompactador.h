@@ -21,6 +21,6 @@ tArvore *DecodificaArvore(unsigned char *arvore, int *tam, int tam_max);
  * Pre-condicao: string diferente de NULL e um "tArvore" diferente de NULL
  * Pos-condicao: nenhuma
 */
-int EscreveTextoDecodificado(unsigned char **buffer_descompactado, tArvore *arv, unsigned char *text, int tam);
+void EscreveTextoDecodificado(unsigned char **buffer_descompactado, tArvore *arv, unsigned char *text, int tam);
 
 #endif

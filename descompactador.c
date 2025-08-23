@@ -19,7 +19,6 @@ tArvore *DecodificaArvore(unsigned char *arvore, int *tam, int tam_max){
         }
 
         arv = CriaFolhas(arvore[*tam+1]);
-        //printf("%c\n", arvore[*tam+1]);
         *tam += 2;
         return arv;
     }
@@ -34,16 +33,12 @@ tArvore *DecodificaArvore(unsigned char *arvore, int *tam, int tam_max){
         if (!dir) return NULL;
 
         arv = CriaGalhos(esq, dir);
-        //ImprimeArvore(arv);
-        //printf("\n\n");
     }
+
     return arv;
 }
 
-int EscreveTextoDecodificado(unsigned char **buffer_descompactado, tArvore *arv, unsigned char *text, int tam){
-    unsigned char *texto;
-    
-    *buffer_descompactado = ProcuraBinario(text, arv, tam);
+void EscreveTextoDecodificado(unsigned char **buffer_descompactado, tArvore *arv, unsigned char *text, int tam){
 
-    return strlen(*buffer_descompactado);
+    *buffer_descompactado = ProcuraBinario(text, arv, tam);
 }

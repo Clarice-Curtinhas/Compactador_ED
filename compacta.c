@@ -7,7 +7,7 @@
 
 #define TAM_MAX_BITS 8
 
-int main(int argc, const char **argv){
+/*int main(int argc, const char **argv){
     if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
         return 1;
@@ -18,6 +18,7 @@ int main(int argc, const char **argv){
     long tam_arquivo;
     unsigned char *buffer;
     unsigned char matriz_codigo[ASCII][ASCII];
+    int tam_codigos[ASCII];
     size_t bytes_lidos;
 
     strcpy(nome_arquivo, argv[1]);
@@ -73,13 +74,13 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-    tArvore *arvoreHuffman = Codifica(buffer, matriz_codigo, tam_arquivo);
+    tArvore *arvoreHuffman = Codifica(buffer, matriz_codigo, tam_codigos, tam_arquivo);
 
     arv_bin_compactada = (unsigned char*) calloc(RetornaFrequencia(arvoreHuffman), sizeof(unsigned char*));
 
-    EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
+   // EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
 
-    tam_buffer_compactado = EscreveTextoCodificado(buffer, matriz_codigo, &buffer_compactado, tam_arquivo);
+    tam_buffer_compactado = EscreveTextoCodificado(buffer, matriz_codigo, tam_codigos, &buffer_compactado, tam_arquivo);
     //printf("Buffer compactado: %s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
 
     arv_bin_compactada = ArvoreCompactada(arvoreHuffman, arv_bin_compactada, &tam_inic);
@@ -90,8 +91,12 @@ int main(int argc, const char **argv){
         bitmapAppendLeastSignificantBit(bm, buffer_compactado[i]);
     }
 
+    fwrite(&tam_inic, sizeof(int), 1, arquivo_saida);
+    fwrite(&tam_arquivo, sizeof(long), 1, arquivo_saida);
+    unsigned int total_bits = bitmapGetLength(bm);
+    fwrite(&total_bits, sizeof(unsigned int), 1, arquivo_saida);
+
     fwrite(arv_bin_compactada, 1, tam_inic, arquivo_saida);
-    fprintf(arquivo_saida, "~"); // Imprime esse caracter no arquivo como indicador que a árvore terminou
     bytes_escritos = fwrite(bitmapGetContents(bm), 1, (bitmapGetLength(bm) + 7) / 8, arquivo_saida);
 
 
@@ -103,4 +108,4 @@ int main(int argc, const char **argv){
     free(buffer_compactado);
 
     return 0;
-}
+}*/

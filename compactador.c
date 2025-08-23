@@ -13,7 +13,7 @@
 #define NUMERO 2
 
 
-tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][ASCII], int tam){
+tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][ASCII], int tam_codigos[ASCII], int tam){
     tArvore *arvores[ASCII], *arv_completa, *vetor_arv[ASCII];
     int qnt = 0, existe, h;
 
@@ -63,7 +63,7 @@ tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][ASCII]
 
     for(int i = 0; i < ASCII; i++){
         if(arvores[i] != NULL){
-            EncontraCaracter(arv_completa, RetornaCaracter(arvores[i]), matriz_codigo[i], 1);
+            tam_codigos[i] = EncontraCaracter(arv_completa, RetornaCaracter(arvores[i]), matriz_codigo[i], 1);
 
             /*//printf("codigo: %c\n", i);
 
@@ -163,25 +163,25 @@ tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt){
     return arv;
 }
 
-int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][ASCII], unsigned char **buffer_compactado, int tam_texto){
-    int tam_codigo = 0, index;
+int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][ASCII], int tam_codigos[ASCII], unsigned char **buffer_compactado, int tam_texto){
+    int tam_total = 0, index;
 
     *buffer_compactado = (unsigned char *) calloc(tam_texto * 8, sizeof(unsigned char));
 
     for(int i = 0; i < tam_texto; i++){
         index = text[i];
-        //printf("\n\nCod. ASCII: %d\nletra %c\n", index, text[i]); //teste
-        //printf("Cod. Huffman: "); //teste
 
-        for (int j = 1; matriz[index][j] != '\0'; j++){
-            (*buffer_compactado)[tam_codigo] = matriz[index][j];
-            //printf("%c ", (*buffer_compactado)[tam_codigo]); //teste
-            tam_codigo++;
+        for (int j = 1; j < tam_codigos[index]; j++){
+            //printf("%c-", matriz[index][j]);
+            (*buffer_compactado)[tam_total] = matriz[index][j];
+            //printf("%c ", (*buffer_compactado)[tam_total]); //teste
+            tam_total++;
         }
+        //printf("\n");
     }
 
-    tam_codigo++;
-    //(*buffer_compactado)[tam_codigo] = '\0';
+    tam_total++;
+    //(*buffer_compactado)[tam_total] = '\0';
 
-    return tam_codigo;
+    return tam_total;
 }

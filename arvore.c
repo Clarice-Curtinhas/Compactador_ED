@@ -29,7 +29,6 @@ tArvore *CriaFolhas(unsigned char caracter){
 
     arv->carac = caracter;
     arv->freq = 1;
-    //arv->codigo = CriaLista();
 
     arv->tipo = CARACTER;
 
@@ -48,10 +47,7 @@ tArvore *CriaGalhos(tArvore *esq, tArvore *dir){
     arv->tipo = NUMERO;
 
     arv->esq = esq;
-    //EscreveCodigosFolha(arv->esq, 0);
-
     arv->dir = dir;
-    //EscreveCodigosFolha(arv->dir, 1);
 
     return arv;
 }
@@ -117,7 +113,7 @@ unsigned char* ProcuraBinario(unsigned char *vect, tArvore *arv, int tam){
     texto = (unsigned char*) calloc(tam, sizeof(unsigned char));
 
 
-    for (int i = 0; i < tam; i++){
+    for (int i = 0; i < tam;){
         aux = arv;
 
         while(aux->esq != NULL || aux->dir != NULL){
@@ -187,23 +183,27 @@ int EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
 
 int EncontraCaracter(tArvore *arv, unsigned char carac, unsigned char *codigoHuffman, int tamCodigo){
 
-    if(arv->tipo = CARACTER){
+    if(arv->tipo == CARACTER){
         if(carac == arv->carac) {
-            codigoHuffman[tamCodigo] = '\0';
-            return 1;
+            return tamCodigo;
         }
+
+        else return 0;
     }
 
     else{
+        int encontrou;
 
         codigoHuffman[tamCodigo] = '0';
-        if(EncontraCaracter(arv->esq, carac, codigoHuffman, tamCodigo + 1) == 1){
-            return 1;
+
+        if(EncontraCaracter(arv->esq, carac, codigoHuffman, tamCodigo + 1) >= 1){
+            return EncontraCaracter(arv->esq, carac, codigoHuffman, tamCodigo + 1);
         }
 
         codigoHuffman[tamCodigo] = '1';
-        if(EncontraCaracter(arv->dir, carac, codigoHuffman, tamCodigo + 1) == 1){
-            return 1;
+
+        if(EncontraCaracter(arv->dir, carac, codigoHuffman, tamCodigo + 1) >= 1){
+            return EncontraCaracter(arv->dir, carac, codigoHuffman, tamCodigo + 1);
         }
 
         return 0;
