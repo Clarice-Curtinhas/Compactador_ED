@@ -40,12 +40,7 @@ int main(int argc, const char **argv){
 
     fread(&tam_arv, sizeof(int), 1, arquivo_entrada);
     fread(&tam_original, sizeof(long), 1, arquivo_entrada);
-
-    if (fread(&total_bits, sizeof(int), 1, arquivo_entrada) != 1) {
-        printf("Erro ao ler a quantidade de bits do final do arquivo.\n");
-        fclose(arquivo_entrada);
-        return 1;
-    }
+    fread(&total_bits, sizeof(int), 1, arquivo_entrada);
 
     while(fread(&caracter, sizeof(unsigned char), 1, arquivo_entrada)) {
 
@@ -111,8 +106,6 @@ int main(int argc, const char **argv){
     unsigned char *buffer_descompactado;
     size_t bytes_escritos;
     long tam_buffer_descompactado;
-
-    buffer_descompactado = (unsigned char*) calloc(tam_original, sizeof(unsigned char));
 
     int tam_nome_arquivo = strlen(nome_arquivo);
 

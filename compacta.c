@@ -94,7 +94,7 @@
     fwrite(&tam_inic, sizeof(int), 1, arquivo_saida);
     fwrite(&tam_arquivo, sizeof(long), 1, arquivo_saida);
     unsigned int total_bits = bitmapGetLength(bm);
-    fwrite(&total_bits, sizeof(unsigned int), 1, arquivo_saida);
+    fwrite(&bits, sizeof(int), 1, arquivo_saida);
 
     fwrite(arv_bin_compactada, 1, tam_inic, arquivo_saida);
     bytes_escritos = fwrite(bitmapGetContents(bm), 1, (bitmapGetLength(bm) + 7) / 8, arquivo_saida);
