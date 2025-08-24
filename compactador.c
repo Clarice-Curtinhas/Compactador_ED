@@ -163,25 +163,19 @@ tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt){
     return arv;
 }
 
-int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][ASCII], int tam_codigos[ASCII], unsigned char **buffer_compactado, int tam_texto){
+int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][ASCII], int tam_codigos[ASCII], bitmap *bm, int tam_texto){
     int tam_total = 0, index;
-
-    *buffer_compactado = (unsigned char *) calloc(tam_texto * 8, sizeof(unsigned char));
 
     for(int i = 0; i < tam_texto; i++){
         index = text[i];
 
         for (int j = 1; j < tam_codigos[index]; j++){
-            //printf("%c-", matriz[index][j]);
-            (*buffer_compactado)[tam_total] = matriz[index][j];
-            //printf("%c ", (*buffer_compactado)[tam_total]); //teste
+            bitmapAppendLeastSignificantBit(bm, matriz[index][j]);
             tam_total++;
         }
-        //printf("\n");
     }
 
     tam_total++;
-    //(*buffer_compactado)[tam_total] = '\0';
 
     return tam_total;
 }

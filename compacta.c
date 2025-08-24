@@ -7,7 +7,7 @@
 
 #define TAM_MAX_BITS 8
 
-int main(int argc, const char **argv){
+/*int main(int argc, const char **argv){
     if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
         return 1;
@@ -58,7 +58,7 @@ int main(int argc, const char **argv){
 
     FILE *arquivo_saida;
     char nome_arquivo_compactado[100];
-    unsigned char *buffer_compactado, *arv_bin_compactada;
+    unsigned char *arv_bin_compactada;
     size_t bytes_escritos, tamBin;
     long tam_buffer_compactado;
     int tam_inic = 0;
@@ -77,19 +77,10 @@ int main(int argc, const char **argv){
     tArvore *arvoreHuffman = Codifica(buffer, matriz_codigo, tam_codigos, tam_arquivo);
 
     arv_bin_compactada = (unsigned char*) calloc(RetornaFrequencia(arvoreHuffman), sizeof(unsigned char*));
-
-   // EscreveCodigoHuffman(arvoreHuffman, buffer, tam_arquivo); // Apenas para visualização
-
-    tam_buffer_compactado = EscreveTextoCodificado(buffer, matriz_codigo, tam_codigos, &buffer_compactado, tam_arquivo);
-    //printf("Buffer compactado: %s, %ld\n", buffer_compactado, tam_buffer_compactado); // teste
-
     arv_bin_compactada = ArvoreCompactada(arvoreHuffman, arv_bin_compactada, &tam_inic);
 
-    bitmap *bm = bitmapInit(tam_buffer_compactado * TAM_MAX_BITS);
-
-    for (int i = 0; i < tam_buffer_compactado; i++){
-        bitmapAppendLeastSignificantBit(bm, buffer_compactado[i]);
-    }
+    bitmap *bm = bitmapInit(tam_arquivo * TAM_MAX_BITS);
+    tam_buffer_compactado = EscreveTextoCodificado(buffer, matriz_codigo, tam_codigos, bm, tam_arquivo);
 
     fwrite(&tam_inic, sizeof(int), 1, arquivo_saida);
     fwrite(&tam_arquivo, sizeof(long), 1, arquivo_saida);
@@ -105,7 +96,6 @@ int main(int argc, const char **argv){
     DesalocaArvore(arvoreHuffman);
     free(arv_bin_compactada);
     free(buffer);
-    free(buffer_compactado);
 
     return 0;
-}
+}*/

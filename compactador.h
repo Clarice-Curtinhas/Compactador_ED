@@ -65,6 +65,6 @@ tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt);
  * Pre-condicao: string diferente de NULL e um "tArvore" diferente de NULL
  * Pos-condicao: nenhuma
 */
-int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][ASCII], int tam_codigos[ASCII], unsigned char **buffer_compactado, int tam_texto);
+int EscreveTextoCodificado(unsigned char *text, unsigned char matriz[ASCII][ASCII], int tam_codigos[ASCII], bitmap *bm, int tam_texto);
 
 #endif
