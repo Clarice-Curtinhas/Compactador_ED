@@ -7,7 +7,7 @@
 #define MAX_TAM_ARVORE 1000
 #define TAM_MAX_BITS 8
 
-int main(int argc, const char **argv){
+/*int main(int argc, const char **argv){
     unsigned char *textoDescompac, arvore_arq[MAX_TAM_ARVORE];
     int tam_arvore = 0;
     tArvore *arv;
@@ -140,4 +140,4 @@ int main(int argc, const char **argv){
     DesalocaArvore(arv);
 
     return 0;
-}
+}*/

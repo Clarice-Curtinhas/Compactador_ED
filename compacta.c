@@ -7,7 +7,7 @@
 
 #define TAM_MAX_BITS 8
 
-/*int main(int argc, const char **argv){
+int main(int argc, const char **argv){
     if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
         return 1;
@@ -94,7 +94,7 @@
     fwrite(&tam_inic, sizeof(int), 1, arquivo_saida);
     fwrite(&tam_arquivo, sizeof(long), 1, arquivo_saida);
     unsigned int total_bits = bitmapGetLength(bm);
-    fwrite(&bits, sizeof(int), 1, arquivo_saida);
+    fwrite(&total_bits, sizeof(int), 1, arquivo_saida);
 
     fwrite(arv_bin_compactada, 1, tam_inic, arquivo_saida);
     bytes_escritos = fwrite(bitmapGetContents(bm), 1, (bitmapGetLength(bm) + 7) / 8, arquivo_saida);
@@ -108,4 +108,4 @@
     free(buffer_compactado);
 
     return 0;
-}*/
+}
