@@ -83,6 +83,7 @@ tArvore *CriaHuffman(tArvore **arv, int qnt){
     int menorFreq1, idFreq1, menorFreq2, idFreq2;
 
     while(qnt != 1){
+        OrdenaLista(arv, qnt);
         idFreq1 = 0;
         idFreq2 = 1;
 
