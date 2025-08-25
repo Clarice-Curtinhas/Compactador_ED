@@ -112,7 +112,6 @@ unsigned char* ProcuraBinario(unsigned char *vect, tArvore *arv, int tam){
 
     texto = (unsigned char*) calloc(tam, sizeof(unsigned char));
 
-
     for (int i = 0; i < tam;){
         aux = arv;
 
@@ -151,8 +150,6 @@ int EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
     unsigned char caracter[tam], codigoHuffman[TAM_MAX_BITS];
     int qntAnalisados = 0, jaFoi;
 
-    //printf("%d\n", tam);
-
     for(int i = 0; i < tam; i++){
         jaFoi = 0;
 
@@ -167,7 +164,6 @@ int EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
         }
 
         if(jaFoi == 0){
-            //printf("SCII: %d - %c - ", text[i], text[i]);
 
             if(EncontraCaracter(arv, text[i], codigoHuffman, 0) == 0)
                 printf("Erro! caracter não encontrado");
@@ -176,9 +172,6 @@ int EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam){
             qntAnalisados++;
         }
     }
-
-    //printf("\n");
-    // Tamnho a ser alocado para o buffer compactado no "compacta.c"
 }
 
 int EncontraCaracter(tArvore *arv, unsigned char carac, unsigned char *codigoHuffman, int tamCodigo){

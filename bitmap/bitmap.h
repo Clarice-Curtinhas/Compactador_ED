@@ -13,8 +13,6 @@ typedef struct map bitmap;
 
 unsigned char* bitmapGetContents(bitmap* bm);
 
-void bitmapLimpa (bitmap* bm);
-
 unsigned int bitmapGetMaxSize(bitmap* bm);
 
 unsigned int bitmapGetLength(bitmap* bm);

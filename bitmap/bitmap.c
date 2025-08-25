@@ -27,12 +27,6 @@ void assert(int testresult, char* message) {
 	}
 }
 
-void bitmapLimpa (bitmap* bm){
-	memset(bm->contents,0,bm->length*sizeof (sizeof(unsigned char) * 8));
-
-}
-
-
 /**
  * Retorna o conteudo do mapa de bits.
  * @param bm O mapa de bits.

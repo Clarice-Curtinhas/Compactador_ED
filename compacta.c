@@ -34,7 +34,7 @@
     tam_arquivo = ftell(arquivo_entrada);
     fseek(arquivo_entrada, 0, SEEK_SET);
 
-    // Aloca um buffer para armazenar os dados do arquivo. Aloca "tam_arquivo + 1" posições para adicionar um \0.
+    // Aloca um buffer para armazenar os dados do arquivo.
     buffer = (unsigned char*) calloc(tam_arquivo + 1, sizeof(unsigned char));
 
     if (buffer == NULL){
@@ -51,8 +51,6 @@
         fclose(arquivo_entrada);
         return 1;
     }
-
-    //buffer[tam_arquivo] = '\0';
     
     fclose(arquivo_entrada);
 
@@ -89,7 +87,6 @@
 
     fwrite(arv_bin_compactada, 1, tam_inic, arquivo_saida);
     bytes_escritos = fwrite(bitmapGetContents(bm), 1, (bitmapGetLength(bm) + 7) / 8, arquivo_saida);
-
 
     fclose(arquivo_saida);
     bitmapLibera(bm);

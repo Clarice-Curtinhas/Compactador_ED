@@ -17,14 +17,12 @@ tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][ASCII]
     tArvore *arvores[ASCII], *arv_completa, *vetor_arv[ASCII];
     int qnt = 0, existe, h;
 
-    //printf("%s", text);
-
     for(int i = 0; i < ASCII; i++){
         arvores[i] = NULL;
     }
 
-    //coloca os caracteres dentro de um vetor de arvores de acordo com o ASCII para
-    //não ter fazer diversas buscas lineares (otimizando o código)
+    // Coloca os caracteres dentro de um vetor de arvores de acordo com o ASCII para
+    // não ter que fazer diversas buscas lineares (otimizando o código)
 
     for(int i = 0; i < tam; i++){
         h = text[i];
@@ -38,7 +36,7 @@ tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][ASCII]
         }
     }
 
-    //cria outro vetor que não terá mais indices NULLs para facilitar quicksort
+    // Cria outro vetor que não terá mais indices NULLs para facilitar quicksort
 
     for(int i = 0; i < ASCII; i++){
         if(arvores[i] != NULL){
@@ -46,8 +44,6 @@ tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][ASCII]
             qnt++;
         }
     }
-
-    //printf("%s", text);
 
     OrdenaLista(vetor_arv, qnt);
 
@@ -57,20 +53,12 @@ tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][ASCII]
         total += RetornaFrequencia(vetor_arv[i]);
     }
 
-    //printf("%d\n", total);
-
     arv_completa = CriaHuffman(vetor_arv, qnt);
 
     for(int i = 0; i < ASCII; i++){
         if(arvores[i] != NULL){
             tam_codigos[i] = EncontraCaracter(arv_completa, RetornaCaracter(arvores[i]), matriz_codigo[i], 1);
 
-            /*//printf("codigo: %c\n", i);
-
-            for (int j = 1; matriz_codigo[i][j] != '\0'; j++){
-                //printf("%u ", matriz_codigo[i][j]); //teste
-            }
-            //printf("\n");*/
             qnt++;
         }
     }
@@ -94,12 +82,6 @@ tArvore *CriaHuffman(tArvore **arv, int qnt){
 
         arv = AdicionaLista(arv, arvore, qnt);
         qnt++;
-
-        /*for(int i = 0; i < qnt; i++){
-            printf("'%c' ", RetornaCaracter(arv[i]));
-            printf("- %d\n", RetornaFrequencia(arv[i]));
-        }
-        printf("\n");*/
     }
 
     return arvore;

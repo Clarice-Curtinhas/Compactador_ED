@@ -27,7 +27,6 @@ int main(int argc, const char **argv){
     size_t bytes_lidos;
 
     strcpy(nome_arquivo, argv[1]);
-    //strcat(nome_arquivo, ".comp");
     arquivo_entrada = fopen(nome_arquivo, "rb");
 
     if (arquivo_entrada == NULL){
@@ -35,12 +34,13 @@ int main(int argc, const char **argv){
         return 1;
     }
 
-    // Lê a árvore no início do arquivo binário
-    unsigned char caracter = 0;
-
+    // Lê os valores escritos no início do arquivo binário
     fread(&tam_arv, sizeof(int), 1, arquivo_entrada);
     fread(&tam_original, sizeof(long), 1, arquivo_entrada);
     fread(&total_bits, sizeof(int), 1, arquivo_entrada);
+
+    // Lê a árvore no início do arquivo binário
+    unsigned char caracter = 0;
 
     while(fread(&caracter, sizeof(unsigned char), 1, arquivo_entrada)) {
 
@@ -77,17 +77,13 @@ int main(int argc, const char **argv){
     }
 
     // Lê os dados do arquivo e armazena no buffer
-
     while (lidos < total_bits){
         if (!fread(&caracter_binario, 1, 1, arquivo_entrada)) break;
-
-        //printf("\nbyte:%c -> bits: ", caracter_binario);
 
         for (int i = 0; i < TAM_MAX_BITS; i++){
             if(lidos >= total_bits) break;
 
             buffer[lidos] = ((caracter_binario >> (7 - i)) & 1) + '0';
-            //printf("%c ", buffer[lidos]);
             lidos++;
         }
     }
@@ -109,12 +105,10 @@ int main(int argc, const char **argv){
 
     int tam_nome_arquivo = strlen(nome_arquivo);
 
-    // Retira o ".comp" do nome do arquivo e adiciona ".descomp"
+    // Retira o ".comp" do nome do arquivo
     for (int i = 0; i < tam_nome_arquivo - 5; i++){
         nome_arquivo_descompactado[i] = nome_arquivo[i];
     }
-
-    strcat(nome_arquivo_descompactado, ".descomp");
 
     arquivo_saida = fopen(nome_arquivo_descompactado, "wb");
 
@@ -125,7 +119,6 @@ int main(int argc, const char **argv){
     }
 
     EscreveTextoDecodificado(&buffer_descompactado, arv, buffer, lidos-1);
-    //printf("buffer descomp.: %s, tam: %ld\n", buffer_descompactado, tam_buffer_descompactado);
 
     bytes_escritos = fwrite(buffer_descompactado, 1, tam_original, arquivo_saida);
 
@@ -136,7 +129,6 @@ int main(int argc, const char **argv){
     fclose(arquivo_saida);
     free(buffer);
     free(buffer_descompactado);
-
     DesalocaArvore(arv);
 
     return 0;

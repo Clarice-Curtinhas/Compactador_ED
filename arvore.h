@@ -10,7 +10,7 @@ typedef struct Arvore tArvore;
 
 /*
  * Cria uma árvore nova com dois galhos NULLs
- * Inputs: a informação do nó e os galhos NULLs
+ * Inputs: a informação do nó
  * Outputs: um tipo "tArvore" alocado e inicializado
  * Pre-condicao: info diferente de NULL
  * Pos-condicao: um tipo "tArvore" alocado e com os campos preenchidos
@@ -73,7 +73,7 @@ void ImprimeArvore(tArvore *arv);
 
 /*
  * Navega a árvore de acordo com o seu código binário de compactação
- * Inputs: Um tipo unsigned char para um binário e uma árvore com os códigos correspondentes
+ * Inputs: Um tipo unsigned char para um binário, uma árvore com os códigos correspondentes, tamanho do vetor
  * Outputs: um unsigned char com o caracter correspondente
  * Pre-condicao: nenhuma 
  * Pos-condicao: nenhuma
@@ -91,7 +91,7 @@ void DesalocaArvore(tArvore *arv);
 
 /*
  * Escreve o código Huffman criado
- * Inputs: Um tipo "tArvore" com o código Huffman, string com o texto e o tam do texto
+ * Inputs: Um tipo "tArvore" com o código Huffman, string com o texto e o tamanho do texto
  * Outputs: nenhum
  * Pre-condicao: nenhuma 
  * Pos-condicao: nenhuma
@@ -100,7 +100,7 @@ int EscreveCodigoHuffman(tArvore *arv, unsigned char *text, int tam);
 
 /*
  * Encontra caracter e escreve seu código
- * Inputs: Um tipo "tArvore" e um caracter a ser encontrado
+ * Inputs: Um tipo "tArvore", um caracter a ser encontrado um vetor para inserir o código de Huffman, tamanho do código
  * Outputs: nenhum
  * Pre-condicao: nenhuma 
  * Pos-condicao: nenhuma

@@ -9,22 +9,20 @@
 #define ASCII 256
 
 #include "arvore.h"
-//#include "lista.h"
 #include "bitmap/bitmap.h"
 
 /*
  * Lê um texto e codifica uma arvore de Huffman
- * Inputs: uma string com o texto que será codificado, matriz para inserir o código de cada caracter
+ * Inputs: uma string com o texto que será codificado, matriz para inserir o código de cada caracter, vetor com os tamanhos dos códigos, tamanho da string
  * Outputs: um tipo "tArvore" com a codificação das letras usadas
  * Pre-condicao: string diferente de NULL
  * Pos-condicao: tipo "tArvore" diferente de NULL
 */
-//tArvore *Codifica(unsigned char *text, long tam);
 tArvore *Codifica(unsigned char *text, unsigned char matriz_codigo[ASCII][ASCII], int tam_codigos[ASCII], int tam);
 
 /*
  * Codifica uma arvore de Huffman
- * Inputs: um vetor de "tArvore" com cada letra e sua frequência na string e a quantidade de caracteres diferentes no texto
+ * Inputs: um vetor de "tArvore" com cada letra e sua frequência na string, quantidade de caracteres diferentes no texto
  * Outputs: um tipo "tArvore" com a codificação das letras usadas
  * Pre-condicao: tipo "tArvore" diferente de NULL, qnt e total maior que 0
  * Pos-condicao: tipo "tArvore" diferente de NULL
@@ -60,7 +58,7 @@ tArvore **AdicionaLista(tArvore **arv, tArvore *arvore, int qnt);
 
 /*
  * Escreve um texto com o código criado
- * Inputs: texto que será codificado, matirz de códigos, buffer em que o código será armazenado, tamanho do texto
+ * Inputs: texto que será codificado, matriz de códigos, vetor de tamanhos dos códigos, bitmap em que o código será armazenado, tamanho do texto
  * Outputs: nenhum
  * Pre-condicao: string diferente de NULL e um "tArvore" diferente de NULL
  * Pos-condicao: nenhuma
