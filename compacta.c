@@ -1,3 +1,8 @@
+/**
+* Created by Clarice Curtinhas Santos on 10/7/25
+* Copyright © 2025 Clarice Curtinhas Santos, Ana Luisa Casotti de Andrade. All rights reserved.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,7 +12,7 @@
 
 #define TAM_MAX_BITS 8
 
-/*int main(int argc, const char **argv){
+int main(int argc, const char **argv){
     if (argc < 2){
         printf("Linha de comando com argumentos insuficientes!\n");
         return 1;
@@ -95,4 +100,4 @@
     free(buffer);
 
     return 0;
-}*/
+}
